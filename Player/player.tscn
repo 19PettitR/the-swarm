@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3f0kuo0h1p3f"]
+
+[ext_resource type="Texture2D" uid="uid://d0r13c5qp7byj" path="res://Player/square.png" id="1_xryv0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssqjo"]
+size = Vector2(80, 80)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j0o3w"]
+radius = 60.0083
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n8ias"]
+size = Vector2(84, 84)
+
+[node name="Player" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_xryv0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ssqjo")
+
+[node name="Attack Range" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack Range"]
+shape = SubResource("CircleShape2D_j0o3w")
+debug_color = Color(0.986632, 0, 0.321576, 0.42)
+
+[node name="Hit Box" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hit Box"]
+shape = SubResource("RectangleShape2D_n8ias")
+debug_color = Color(0.605319, 0.541173, 0, 0.42)
