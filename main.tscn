@@ -1,8 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://bodn1k2kmnb7x"]
+[gd_scene load_steps=5 format=3 uid="uid://bodn1k2kmnb7x"]
 
 [ext_resource type="PackedScene" uid="uid://c3f0kuo0h1p3f" path="res://Player/player.tscn" id="1_7u0w7"]
+[ext_resource type="Texture2D" uid="uid://83jlsotu8ofp" path="res://Level/tilemap.png" id="2_kbh2p"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5nyum"]
+texture = ExtResource("2_kbh2p")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSet" id="TileSet_q2n1h"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_5nyum")
 
 [node name="Node2D" type="Node2D"]
 
@@ -13,3 +25,4 @@ scale = Vector2(0.634594, 0.629166)
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_q2n1h")
 format = 2
+layer_0/tile_data = PackedInt32Array(1179650, 65537, 0, 1179651, 65537, 0, 1179652, 65537, 0, 1179653, 65537, 0, 1179654, 65537, 0, 1179655, 65537, 0, 1179656, 65537, 0, 1179657, 65537, 0, 1179658, 65537, 0, 1179659, 65537, 0, 1179660, 65537, 0, 1179661, 65537, 0, 1179662, 65537, 0)
