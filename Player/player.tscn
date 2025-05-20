@@ -35,3 +35,7 @@ shape = SubResource("RectangleShape2D_n8ias")
 debug_color = Color(0.605319, 0.541173, 0, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 4608
+limit_bottom = 1944
