@@ -1,7 +1,5 @@
 class_name Climbing_Area extends Area2D
 
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
-
 # The side that the player climbs the wall
 @export var climb_side : String
 # The vertical line the wall makes up
@@ -19,12 +17,13 @@ func _ready() -> void:
 	body_entered.connect(_enter_climbing_area)
 	body_exited.connect(_exit_climbing_area)
 
-
+## Responsible for updating the player's climb variables when they enter the area
 func _enter_climbing_area(_p : Node2D) -> void:
 	in_climbing_range = true
 	PlayerManager.update_climb(true, climb_side, climb_position, climb_maximum, climb_minimum)
 
 
+## Responsible for updating the player's climb variables whn they exit the area
 func _exit_climbing_area(_p : Node2D) -> void:
 	in_climbing_range = false
 	PlayerManager.update_climb(false)

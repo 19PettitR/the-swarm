@@ -118,17 +118,8 @@ func _physics_process(delta: float) -> void:
 		
 	# Climbing movement for when the player is climbing
 	else:
-		
 		# Find which direction the player is moving in
 		direction = Input.get_axis("up", "down")
-		
-		# If there is a direction (player is not stationary), move the player in that direction
-		if direction:
-			velocity.y = direction * speed
-		# If there is no direction, slow the player til they are stationary
-		else:
-			move_toward(velocity.x, 0, speed)
-		
 		# Velocity.y should be changed to move the player along the wall
 		velocity.y = direction * speed
 		
