@@ -6,8 +6,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssqjo"]
 size = Vector2(80, 80)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_j0o3w"]
-radius = 60.0083
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8k712"]
+size = Vector2(100, 102)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8ias"]
 size = Vector2(84, 84)
@@ -25,7 +25,8 @@ shape = SubResource("RectangleShape2D_ssqjo")
 [node name="Attack Range" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack Range"]
-shape = SubResource("CircleShape2D_j0o3w")
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_8k712")
 debug_color = Color(0.986632, 0, 0.321576, 0.42)
 
 [node name="Hit Box" type="Area2D" parent="."]

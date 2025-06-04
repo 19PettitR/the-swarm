@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bunul34g0qaq6"]
+
+[ext_resource type="Texture2D" uid="uid://l4qjftvfjxod" path="res://Enemies/Level 1/enemy_1.png" id="1_5ija4"]
+[ext_resource type="Script" path="res://Enemies/Level 1/enemy_1.gd" id="1_y16c4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p505t"]
+size = Vector2(80, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iqmm1"]
+size = Vector2(1386, 406)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kaloc"]
+size = Vector2(104, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ew3yd"]
+size = Vector2(98, 96)
+
+[node name="Enemy1" type="CharacterBody2D"]
+script = ExtResource("1_y16c4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_5ija4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p505t")
+
+[node name="Detection Range" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Range"]
+position = Vector2(1, -35)
+shape = SubResource("RectangleShape2D_iqmm1")
+debug_color = Color(0.827451, 0, 0.952941, 0.027451)
+
+[node name="Attack Box" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack Box"]
+shape = SubResource("RectangleShape2D_kaloc")
+debug_color = Color(0.990857, 0, 0.273061, 0.42)
+
+[node name="Hit Box" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hit Box"]
+shape = SubResource("RectangleShape2D_ew3yd")
+debug_color = Color(0.570552, 0.555862, 0, 0.42)
