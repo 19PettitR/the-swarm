@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://l4qjftvfjxod" path="res://Enemies/Level 1/enemy_1.png" id="1_5ija4"]
 [ext_resource type="Script" path="res://Enemies/Level 1/enemy_1.gd" id="1_y16c4"]
+[ext_resource type="PackedScene" uid="uid://dqk7rg8jx3l16" path="res://Enemies/Hit Box.tscn" id="3_cuqut"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p505t"]
 size = Vector2(80, 80)
@@ -11,9 +12,6 @@ size = Vector2(1386, 406)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kaloc"]
 size = Vector2(104, 102)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ew3yd"]
-size = Vector2(98, 96)
 
 [node name="Enemy1" type="CharacterBody2D"]
 script = ExtResource("1_y16c4")
@@ -38,8 +36,5 @@ debug_color = Color(0.827451, 0, 0.952941, 0.027451)
 shape = SubResource("RectangleShape2D_kaloc")
 debug_color = Color(0.990857, 0, 0.273061, 0.42)
 
-[node name="Hit Box" type="Area2D" parent="."]
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hit Box"]
-shape = SubResource("RectangleShape2D_ew3yd")
-debug_color = Color(0.570552, 0.555862, 0, 0.42)
+[node name="HitBox" parent="." instance=ExtResource("3_cuqut")]
+scale = Vector2(-4.79576, -4.79576)

@@ -151,7 +151,7 @@ func _physics_process(delta: float) -> void:
 
 
 ## Handles the timers and variables surrounding the dash since timers should not be used in process subroutines
-func _dash():
+func _dash() -> void:
 	
 	is_dashing = true
 	dash_cooldown = true
@@ -166,7 +166,7 @@ func _dash():
 
 
 ## Sets the variables for the player to be positioned correctly when climbing
-func _climb():
+func _climb() -> void:
 	# When climbing a wall on the right side, player should be at the wall's position plus half their width
 	if climb_side == "right":
 		global_position.x = climb_position + 25
@@ -186,5 +186,5 @@ func _climb():
 
 
 ## Handles the player's attack
-func _attack():
+func _attack() -> void:
 	pass

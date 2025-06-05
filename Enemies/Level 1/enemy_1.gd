@@ -1,5 +1,8 @@
 class_name enemy extends CharacterBody2D
 
+@onready var hit_box: HitBox = $HitBox
+var player = PlayerManager.player
+
 ## Basic variables related to the enemy: speed, strength, hitpoints, cooldown length
 @export_category("Stats")
 @export var speed : float = 290
@@ -23,6 +26,8 @@ var my_position : Vector2
 var player_within_range : bool = false
 # Stores which direction the player is relative to the enemy
 var relative_player_direction : int
+# The direction that the enemy is moving
+var direction : int = 1
 
 var enemy_is_attacking : bool = false
 # Stores whether the enemy's attack is on cooldown or not
@@ -31,3 +36,84 @@ var enemy_attack_cooldown : bool = false
 # Stores the number of hitpoints the enemy has during the game
 var enemy_hitpoints : int = max_enemy_hitpoints
 var dead : bool = false
+
+
+## Connects the subroutines to their signals
+func _ready() -> void:
+	hit_box.take_damage.connect(_take_damage)
+
+
+## Check whether the player can be attacked and updates relative_player_direction
+func _process(_delta: float) -> void:
+	return
+	# Player is to the right
+	if player.global_position.x > global_position.x:
+		relative_player_direction = 1
+	# Player is to the left
+	elif player.global_position.x < global_position.x:
+		relative_player_direction = -1
+	# Player is in same vertical line
+	else:
+		relative_player_direction = 0
+
+
+## Responsible for all enemy movement
+func _physics_process(delta: float) -> void:
+	
+	# Causes the enemy to fall and not remain static (only to be used when spawning)
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	
+	# If the player is not in range, the enemy should patrol up and down
+	if not player_within_range:
+		# If the enemy is further left of the left boundary, they should start moving right
+		if global_position.x <= left_boundary:
+			direction = 1
+		# If the enemy is further right of the right boundary, they should start moving left
+		elif global_position.x >= right_boundary:
+			direction = -1
+	
+	# If the player is in range, they should be followed
+	else:
+		# If player is to the left
+		if relative_player_direction == -1:
+			# If left boundary reached
+			if global_position.x <= left_boundary:
+				# Do not follow player
+				direction = 0
+			else:
+				direction = -1
+		# If player is to the right
+		elif relative_player_direction == 1:
+			# If right boundary reached
+			if global_position.x >= right_boundary:
+				# Do not follow player
+				direction = 0
+			else:
+				direction = 1
+		# If player is in the same vertical line, do not move
+		else:
+			direction = 0
+	
+	velocity.x = speed * direction
+	move_and_slide()
+
+
+## Responsible for attacking the player
+func _attack() -> void:
+	pass
+
+
+## Responsible for the enemy taking damage when it has been hit
+func _take_damage() -> void:
+	pass
+
+
+## Responsible for handling the enemy's death
+func _die() -> void:
+	pass
+
+
+## Responsible for resetting the enemy to its original state when the level is reset
+func _respawn() -> void:
+	pass
