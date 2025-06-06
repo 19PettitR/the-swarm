@@ -1,11 +1,16 @@
 class_name enemy extends CharacterBody2D
 
+# Needed to detect when the enemy has been hit
 @onready var hit_box: HitBox = $HitBox
-var player = PlayerManager.player
+# Needed to find when the player is in range
+@onready var detection_range: DetectionRange = $DetectionRange
+# Needed to chase the player
+@onready var player = PlayerManager.player
 
 ## Basic variables related to the enemy: speed, strength, hitpoints, cooldown length
 @export_category("Stats")
-@export var speed : float = 290
+@export var speed : float = 180
+@export var chase_speed : float = 250
 @export var enemy_strength : float = 10
 @export var max_enemy_hitpoints : int = 1
 @export var enemy_attack_cooldown_length : float = 1.5
@@ -41,11 +46,13 @@ var dead : bool = false
 ## Connects the subroutines to their signals
 func _ready() -> void:
 	hit_box.take_damage.connect(_take_damage)
+	detection_range.seen.connect(_player_seen)
+	detection_range.not_seen.connect(_player_gone)
 
 
 ## Check whether the player can be attacked and updates relative_player_direction
 func _process(_delta: float) -> void:
-	return
+	
 	# Player is to the right
 	if player.global_position.x > global_position.x:
 		relative_player_direction = 1
@@ -72,6 +79,7 @@ func _physics_process(delta: float) -> void:
 		# If the enemy is further right of the right boundary, they should start moving left
 		elif global_position.x >= right_boundary:
 			direction = -1
+		velocity.x = speed * direction
 	
 	# If the player is in range, they should be followed
 	else:
@@ -94,8 +102,8 @@ func _physics_process(delta: float) -> void:
 		# If player is in the same vertical line, do not move
 		else:
 			direction = 0
+		velocity.x = chase_speed * direction
 	
-	velocity.x = speed * direction
 	move_and_slide()
 
 
@@ -117,3 +125,13 @@ func _die() -> void:
 ## Responsible for resetting the enemy to its original state when the level is reset
 func _respawn() -> void:
 	pass
+
+
+## Update player_within_range
+func _player_seen():
+	player_within_range = true
+
+
+## Update player_within_range
+func _player_gone():
+	player_within_range = false

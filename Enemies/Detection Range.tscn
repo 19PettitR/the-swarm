@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct8i2nhmkwntj"]
+
+[ext_resource type="Script" path="res://Enemies/detection_range.gd" id="1_k6jcl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwu3n"]
+
+[node name="DetectionRange" type="Area2D"]
+script = ExtResource("1_k6jcl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fwu3n")
+debug_color = Color(0.806615, 0.00231201, 0.993399, 0.42)
