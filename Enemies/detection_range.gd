@@ -10,10 +10,13 @@ func _ready() -> void:
 
 
 ## Runs when the detection range has been entered
-func _detected(_p: Node2D) -> void:
-	seen.emit()
-
+func _detected(p: Node2D) -> void:
+	# Check what has entered the detection range. Only emit if player
+	if p == PlayerManager.player:
+		seen.emit()
 
 ## Runs when the detection range has been exited
-func _undetected(_p: Node2D) -> void:
-	not_seen.emit()
+func _undetected(p: Node2D) -> void:
+	# Check what has exited the detection range. Only emit if player
+	if p == PlayerManager.player:
+		not_seen.emit()
