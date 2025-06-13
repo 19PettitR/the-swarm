@@ -18,12 +18,14 @@ func _ready() -> void:
 	body_exited.connect(_exit_climbing_area)
 
 ## Responsible for updating the player's climb variables when they enter the area
-func _enter_climbing_area(_p : Node2D) -> void:
-	in_climbing_range = true
-	PlayerManager.update_climb(true, climb_side, climb_position, climb_maximum, climb_minimum)
+func _enter_climbing_area(p : Node2D) -> void:
+	if p == PlayerManager.player:
+		in_climbing_range = true
+		PlayerManager.update_climb(true, climb_side, climb_position, climb_maximum, climb_minimum)
 
 
 ## Responsible for updating the player's climb variables whn they exit the area
-func _exit_climbing_area(_p : Node2D) -> void:
-	in_climbing_range = false
-	PlayerManager.update_climb(false)
+func _exit_climbing_area(p : Node2D) -> void:
+	if p == PlayerManager.player:
+		in_climbing_range = false
+		PlayerManager.update_climb(false)
