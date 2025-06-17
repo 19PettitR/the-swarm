@@ -2,12 +2,10 @@
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_7kge0"]
 [ext_resource type="Texture2D" uid="uid://d0r13c5qp7byj" path="res://Player/square.png" id="1_xryv0"]
+[ext_resource type="PackedScene" uid="uid://byhd0sjppbcv8" path="res://Player/attack_range.tscn" id="3_5fr8b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssqjo"]
 size = Vector2(80, 80)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8k712"]
-size = Vector2(100, 102)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8ias"]
 size = Vector2(84, 84)
@@ -15,19 +13,8 @@ size = Vector2(84, 84)
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_7kge0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-texture = ExtResource("1_xryv0")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ssqjo")
-
-[node name="Attack Range" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack Range"]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_8k712")
-debug_color = Color(0.986632, 0, 0.321576, 0.42)
 
 [node name="Hit Box" type="Area2D" parent="."]
 
@@ -40,3 +27,10 @@ limit_left = 0
 limit_top = 0
 limit_right = 4608
 limit_bottom = 1944
+
+[node name="Attack Range" parent="." instance=ExtResource("3_5fr8b")]
+scale = Vector2(5.24791, 5.24791)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_xryv0")

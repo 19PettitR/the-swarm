@@ -45,7 +45,10 @@ var dead : bool = false
 
 ## Connects the subroutines to their signals
 func _ready() -> void:
-	hit_box.take_damage.connect(_take_damage)
+	# Signals related to enemy taking damage when player within hitbox
+	hit_box.player_in_hitbox.connect(_taking_damage)
+	hit_box.player_in_hitbox.connect(_stop_taking_damage)
+	# Signals related to enemy detecting player
 	detection_range.seen.connect(_player_seen)
 	detection_range.not_seen.connect(_player_gone)
 
@@ -112,8 +115,13 @@ func _attack() -> void:
 	pass
 
 
-## Responsible for the enemy taking damage when it has been hit
-func _take_damage() -> void:
+## Responsible for checking when the enemy needs to take damage (when player inside hitbox)
+func _taking_damage() -> void:
+	pass
+
+
+## Stop the enemy for checking for damage when player exits hitbox
+func _stop_taking_damage() -> void:
 	pass
 
 

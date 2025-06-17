@@ -4,6 +4,7 @@ class_name Player extends CharacterBody2D
 @onready var dash_cooldown_timer: Timer = $Dash_Cooldown
 @onready var attack_timer: Timer = $Attack
 @onready var attack_cooldown_timer: Timer = $Attack_Cooldown
+@onready var attack_range: Area2D = $"Attack Range"
 
 @export var max_health : int = 100
 
@@ -143,7 +144,7 @@ func _physics_process(delta: float) -> void:
 			is_climbing = false
 	
 	# If the user presses the attack key, check they are able to attack and call the subroutine
-	if Input.is_action_just_pressed("attack"): ## and not attack_cooldown:
+	if Input.is_action_just_pressed("attack") and not attack_cooldown:
 		_attack()
 	
 	# This subroutine is required to cause the player to move
@@ -187,4 +188,19 @@ func _climb() -> void:
 
 ## Handles the player's attack
 func _attack() -> void:
-	pass
+	
+	# Attacking and cooldown variables are made true, attack range is made visible
+	is_attacking = true
+	attack_cooldown = true
+	attack_range.visible = true
+	
+	# Once the timer runs out (player finishes attacking), stop attacking
+	attack_timer.start()
+	await attack_timer.timeout
+	is_attacking = false
+	attack_range.visible = false
+	
+	# Once the cooldown timer runs out, the player is able to begin attacking again
+	attack_cooldown_timer.start(attack_cooldown_length)
+	await attack_cooldown_timer.timeout
+	attack_cooldown = false

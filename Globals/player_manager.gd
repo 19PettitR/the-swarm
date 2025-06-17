@@ -1,6 +1,8 @@
 extends Node
 
 @onready var player : CharacterBody2D = get_node("/root/Node2D/Player")
+# Needed so the enemies can detect when they are being attacked
+@onready var attack_range : Area2D = get_node("/root/Node2D/Player/Attack Range")
 
 ## Before anything else, wait for the first process frame since globals load first
 func _ready() -> void:
