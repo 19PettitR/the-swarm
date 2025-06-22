@@ -4,8 +4,15 @@ class_name enemy extends CharacterBody2D
 @onready var hit_box: HitBox = $HitBox
 # Needed to find when the player is in range
 @onready var detection_range: DetectionRange = $DetectionRange
+# Needed to attack the player
+@onready var attack_range: AttackRange = $"Attack Range"
 # Needed to chase the player
 @onready var player = PlayerManager.player
+
+# Timers for controlling enemy attacks
+@onready var enemy_attack_timer: Timer = $"Enemy Attack Timer"
+@onready var enemy_attack_cooldown_timer: Timer = $"Enemy Attack Cooldown Timer"
+
 
 ## Basic variables related to the enemy: speed, strength, hitpoints, cooldown length
 @export_category("Stats")
@@ -21,11 +28,6 @@ class_name enemy extends CharacterBody2D
 @export var left_boundary : float
 @export var right_boundary : float
 
-## Variables relating to the attacking of the enemy: distance it can attack from
-@export_category("Attack Range")
-@export var v_attack_range : int
-@export var h_attack_range : int
-
 # Stores the global_position of the enemy when they are first initialised
 var my_position : Vector2
 # Stores whether the player is in the detection range or not
@@ -35,6 +37,10 @@ var relative_player_direction : int
 # The direction that the enemy is moving
 var direction : int = 1
 
+# Stores whether the player can be attacked (if they are within attack range)
+var enemy_can_attack : bool = false
+# Used to calculate the chance of an enemy attacking
+var enemy_attack_chance : int = 80
 var enemy_is_attacking : bool = false
 # Stores whether the enemy's attack is on cooldown or not
 var enemy_attack_cooldown : bool = false
@@ -51,14 +57,22 @@ var player_in_hitbox : bool
 
 ## Connects the subroutines to their signals
 func _ready() -> void:
+	
 	# Signals related to enemy taking damage when player within hitbox
 	hit_box.player_in_hitbox.connect(_check_for_damage)
 	hit_box.player_not_in_hitbox.connect(_stop_checking_for_damage)
+	# Signal needed to control when the enemy can take damage
+	player.attack_end.connect(_be_vulnerable)
+	
 	# Signals related to enemy detecting player
 	detection_range.seen.connect(_player_seen)
 	detection_range.not_seen.connect(_player_gone)
-	# Signal needed to control when the enemy can take damage
-	player.attack_end.connect(_be_vulnerable)
+	
+	# Signals related to enemy being able to attack player
+	attack_range.can_attack.connect(_look_to_attack)
+	attack_range.cannot_attack.connect(_stop_looking_to_attack)
+	
+	# enemy_hitpoints needs to be set during _ready because max_enemy_hitpoints is export
 	enemy_hitpoints = max_enemy_hitpoints
 
 
@@ -80,12 +94,7 @@ func _process(_delta: float) -> void:
 		if player.is_attacking:
 			_take_damage()
 			enemy_immune = true
-	
-	# Check whether the player is within the attack range
-	if (player.global_position.y - global_position.y) < v_attack_range or (player.global_position.y - global_position.y) > -v_attack_range:
-		if (player.global_position.x - global_position.x) < h_attack_range or (player.global_position.x - global_position.x) > -h_attack_range:
-			print("attack")
-
+			
 
 ## Responsible for all enemy movement
 func _physics_process(delta: float) -> void:
@@ -126,14 +135,45 @@ func _physics_process(delta: float) -> void:
 			# If player is in the same vertical line, do not move
 			else:
 				direction = 0
+				
 			velocity.x = chase_speed * direction
+			
+			# Random chance of the enemy attacking
+			if enemy_can_attack and not enemy_attack_cooldown:
+				if randi_range(1, enemy_attack_chance) == 1:
+					_attack_timings()
 		
 		move_and_slide()
 
 
-## Responsible for attacking the player
-func _attack() -> void:
-	pass
+## Responsible for handling timings when attacking the player
+func _attack_timings() -> void:
+	
+	print("im attacking")
+	enemy_is_attacking = true
+	enemy_attack_cooldown = true
+	
+	velocity.x = velocity.x * enemy_attack_boost * relative_player_direction
+	velocity.y = randi_range(0, 50)
+	
+	enemy_attack_timer.start()
+	await enemy_attack_timer.timeout
+	enemy_is_attacking = false
+	print("im not attacking")
+	
+	enemy_attack_cooldown_timer.start(enemy_attack_cooldown_length)
+	await enemy_attack_cooldown_timer.timeout
+	enemy_attack_cooldown = false
+	print("done cooling down")
+
+
+## Allows the enemy to check to attack the player
+func _look_to_attack() -> void:
+	enemy_can_attack = true
+
+## Stops the enemy from checking to attack the player
+func _stop_looking_to_attack() -> void:
+	enemy_can_attack = false
 
 
 ## Makes the enemy take damage when the player has attacked them

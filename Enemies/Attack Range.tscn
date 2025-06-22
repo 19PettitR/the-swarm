@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg62inay80wli"]
+
+[ext_resource type="Script" path="res://Enemies/attack_range.gd" id="1_agbyo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k8kio"]
+size = Vector2(102, 20)
+
+[node name="Attack Range" type="Area2D"]
+script = ExtResource("1_agbyo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k8kio")
+debug_color = Color(0.504016, 0, 0.0849009, 0.42)

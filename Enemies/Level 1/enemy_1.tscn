@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bunul34g0qaq6"]
+[gd_scene load_steps=8 format=3 uid="uid://bunul34g0qaq6"]
 
 [ext_resource type="Texture2D" uid="uid://l4qjftvfjxod" path="res://Enemies/Level 1/enemy_1.png" id="1_5ija4"]
 [ext_resource type="Script" path="res://Enemies/Level 1/enemy_1.gd" id="1_y16c4"]
 [ext_resource type="PackedScene" uid="uid://dqk7rg8jx3l16" path="res://Enemies/Hit Box.tscn" id="3_cuqut"]
 [ext_resource type="PackedScene" uid="uid://ct8i2nhmkwntj" path="res://Enemies/Detection Range.tscn" id="4_ra8c5"]
+[ext_resource type="PackedScene" uid="uid://bg62inay80wli" path="res://Enemies/Attack Range.tscn" id="5_awd0v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p505t"]
 size = Vector2(80, 80)
@@ -32,3 +33,10 @@ scale = Vector2(-4.79576, -4.79576)
 
 [node name="DetectionRange" parent="." instance=ExtResource("4_ra8c5")]
 scale = Vector2(64.821, -25.0297)
+
+[node name="Attack Range" parent="." instance=ExtResource("5_awd0v")]
+scale = Vector2(11.1413, 15.2153)
+
+[node name="Enemy Attack Timer" type="Timer" parent="."]
+
+[node name="Enemy Attack Cooldown Timer" type="Timer" parent="."]
