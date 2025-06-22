@@ -9,13 +9,13 @@ signal player_not_in_hitbox
 ## Connects the body entered signal to attack
 func _ready() -> void:
 	area_entered.connect(_attacked)
+	area_exited.connect(_not_attacked)
 
 
 ## Runs when the hit box has been entered by an area
 func _attacked(p: Node2D) -> void:
 	if p == PlayerManager.attack_range:
 		player_in_hitbox.emit()
-
 
 ## Runs when the hit box has been exited by an area
 func _not_attacked(p: Node2D) -> void:

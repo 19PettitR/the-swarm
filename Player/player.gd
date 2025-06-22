@@ -6,6 +6,9 @@ class_name Player extends CharacterBody2D
 @onready var attack_cooldown_timer: Timer = $Attack_Cooldown
 @onready var attack_range: Area2D = $"Attack Range"
 
+## Used to signal to enemies when an attack has ended so they become vulnerable
+signal attack_end
+
 @export var max_health : int = 100
 
 ## These variables are related to character movement, can be changed in the inspector panel
@@ -199,6 +202,7 @@ func _attack() -> void:
 	await attack_timer.timeout
 	is_attacking = false
 	attack_range.visible = false
+	attack_end.emit()
 	
 	# Once the cooldown timer runs out, the player is able to begin attacking again
 	attack_cooldown_timer.start(attack_cooldown_length)
