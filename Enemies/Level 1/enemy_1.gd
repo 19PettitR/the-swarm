@@ -14,12 +14,17 @@ class_name enemy extends CharacterBody2D
 @onready var enemy_attack_cooldown_timer: Timer = $"Enemy Attack Cooldown Timer"
 
 
-## Basic variables related to the enemy: speed, strength, hitpoints, cooldown length
+## Basic variables related to the enemy: speed, strength, hitpoints
 @export_category("Stats")
 @export var speed : float = 180
 @export var chase_speed : float = 250
 @export var enemy_strength : float = 10
 @export var max_enemy_hitpoints : int = 1
+
+## Variables relating to the enemy's attack
+@export_category("Attack")
+# Used to calculate the chance of an enemy attacking
+@export var enemy_attack_chance : int = 100
 @export var enemy_attack_cooldown_length : float = 1.5
 @export var enemy_attack_boost : int = 3
 
@@ -39,8 +44,6 @@ var direction : int = 1
 
 # Stores whether the player can be attacked (if they are within attack range)
 var enemy_can_attack : bool = false
-# Used to calculate the chance of an enemy attacking
-var enemy_attack_chance : int = 80
 var enemy_is_attacking : bool = false
 # Stores whether the enemy's attack is on cooldown or not
 var enemy_attack_cooldown : bool = false
@@ -104,44 +107,58 @@ func _physics_process(delta: float) -> void:
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 		
-		# If the player is not in range, the enemy should patrol up and down
-		if not player_within_range:
-			# If the enemy is further left of the left boundary, they should start moving right
-			if global_position.x <= left_boundary:
-				direction = 1
-			# If the enemy is further right of the right boundary, they should start moving left
-			elif global_position.x >= right_boundary:
-				direction = -1
-			velocity.x = speed * direction
-		
-		# If the player is in range, they should be followed
-		else:
-			# If player is to the left
-			if relative_player_direction == -1:
-				# If left boundary reached
+		# Normal chasing and patrolling when the enemy is not attacking
+		if not enemy_is_attacking:
+			# If the player is not in range, the enemy should patrol up and down
+			if not player_within_range:
+				# If the enemy is further left of the left boundary, they should start moving right
 				if global_position.x <= left_boundary:
-					# Do not follow player
-					direction = 0
-				else:
-					direction = -1
-			# If player is to the right
-			elif relative_player_direction == 1:
-				# If right boundary reached
-				if global_position.x >= right_boundary:
-					# Do not follow player
-					direction = 0
-				else:
 					direction = 1
-			# If player is in the same vertical line, do not move
-			else:
-				direction = 0
+				# If the enemy is further right of the right boundary, they should start moving left
+				elif global_position.x >= right_boundary:
+					direction = -1
 				
-			velocity.x = chase_speed * direction
+				velocity.x = speed * direction
 			
-			# Random chance of the enemy attacking
-			if enemy_can_attack and not enemy_attack_cooldown:
-				if randi_range(1, enemy_attack_chance) == 1:
-					_attack_timings()
+			# If the player is in range, they should be followed
+			else:
+				# If player is to the left
+				if relative_player_direction == -1:
+					# If left boundary reached
+					if global_position.x <= left_boundary:
+						# Do not follow player
+						direction = 0
+					else:
+						direction = -1
+				# If player is to the right
+				elif relative_player_direction == 1:
+					# If right boundary reached
+					if global_position.x >= right_boundary:
+						# Do not follow player
+						direction = 0
+					else:
+						direction = 1
+				# If player is in the same vertical line, do not move
+				else:
+					direction = 0
+				
+				velocity.x = chase_speed * direction
+				
+				# Random chance of the enemy attacking
+				if enemy_can_attack and not enemy_attack_cooldown:
+					# A 1 in [enemy_attack_chance] chance of the enemy attacking
+					if randi_range(1, enemy_attack_chance) == 1:
+						# Call a subroutine to handle the attack timings
+						_attack_timings()
+						# Cause the enemy to lunge at the player; overwrites previous velocity.x
+						velocity.x = velocity.x * enemy_attack_boost * relative_player_direction
+						velocity.y = randi_range(-400, -50)
+		
+		# If enemy_is_attacking
+		else:
+			# Prevent the enemy from leaving their boundary
+			if global_position.x <= left_boundary or global_position.x >= right_boundary:
+				velocity.x = 0
 		
 		move_and_slide()
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3f0kuo0h1p3f"]
+[gd_scene load_steps=7 format=3 uid="uid://c3f0kuo0h1p3f"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_7kge0"]
 [ext_resource type="Texture2D" uid="uid://d0r13c5qp7byj" path="res://Player/square.png" id="1_xryv0"]
+[ext_resource type="Script" path="res://Player/p_hit_box.gd" id="2_plhwh"]
 [ext_resource type="PackedScene" uid="uid://byhd0sjppbcv8" path="res://Player/attack_range.tscn" id="3_5fr8b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssqjo"]
@@ -17,6 +18,7 @@ script = ExtResource("1_7kge0")
 shape = SubResource("RectangleShape2D_ssqjo")
 
 [node name="Hit Box" type="Area2D" parent="."]
+script = ExtResource("2_plhwh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hit Box"]
 shape = SubResource("RectangleShape2D_n8ias")
