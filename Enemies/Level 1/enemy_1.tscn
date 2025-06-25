@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bunul34g0qaq6"]
+[gd_scene load_steps=9 format=3 uid="uid://bunul34g0qaq6"]
 
 [ext_resource type="Texture2D" uid="uid://l4qjftvfjxod" path="res://Enemies/Level 1/enemy_1.png" id="1_5ija4"]
 [ext_resource type="Script" path="res://Enemies/Level 1/enemy_1.gd" id="1_y16c4"]
 [ext_resource type="PackedScene" uid="uid://dqk7rg8jx3l16" path="res://Enemies/Hit Box.tscn" id="3_cuqut"]
+[ext_resource type="Script" path="res://Enemies/Level 1/attack_box.gd" id="3_xy0t4"]
 [ext_resource type="PackedScene" uid="uid://ct8i2nhmkwntj" path="res://Enemies/Detection Range.tscn" id="4_ra8c5"]
 [ext_resource type="PackedScene" uid="uid://bg62inay80wli" path="res://Enemies/Attack Range.tscn" id="5_awd0v"]
 
@@ -23,6 +24,7 @@ texture = ExtResource("1_5ija4")
 shape = SubResource("RectangleShape2D_p505t")
 
 [node name="Attack Box" type="Area2D" parent="."]
+script = ExtResource("3_xy0t4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack Box"]
 shape = SubResource("RectangleShape2D_kaloc")

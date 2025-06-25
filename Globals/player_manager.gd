@@ -3,6 +3,7 @@ extends Node
 @onready var player : CharacterBody2D = get_node("/root/Node2D/Player")
 # Needed so the enemies can detect when they are being attacked
 @onready var attack_range : Area2D = get_node("/root/Node2D/Player/Attack Range")
+@onready var hit_box : Area2D = get_node("/root/Node2D/Player/Hit Box")
 
 ## Before anything else, wait for the first process frame since globals load first
 func _ready() -> void:
@@ -20,3 +21,18 @@ func update_climb(can_climb:bool, side:String="", pos:float=0, c_max:float=0, c_
 		player.climb_minimum = c_min
 	else:
 		player.in_climbing_range = false
+
+
+## Handles player taking damage
+func player_health(s:int) -> void:
+	# Player should die if their health goes below 0
+	if player.health + s <= 0:
+		_player_die()
+	else:
+		player.health += s
+	print(player.health)
+
+
+## Handles player death
+func _player_die() -> void:
+	print("player has died")

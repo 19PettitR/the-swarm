@@ -1,4 +1,4 @@
-class_name enemy extends CharacterBody2D
+class_name Enemy extends CharacterBody2D
 
 # Needed to detect when the enemy has been hit
 @onready var hit_box: HitBox = $HitBox

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://byhd0sjppbcv8"]
 
-[ext_resource type="Texture2D" uid="uid://d0r13c5qp7byj" path="res://Player/square.png" id="1_6a6uh"]
+[ext_resource type="Texture2D" uid="uid://cy3livix15ghl" path="res://Player/attack_range.png" id="1_xvcv7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8r57c"]
 
@@ -8,9 +8,9 @@
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.397176, 0.401648, 1)
-scale = Vector2(0.252255, 0.252255)
-texture = ExtResource("1_6a6uh")
+modulate = Color(0.721519, 0, 0.143115, 0.360784)
+scale = Vector2(0.0624212, 0.0624212)
+texture = ExtResource("1_xvcv7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8r57c")
