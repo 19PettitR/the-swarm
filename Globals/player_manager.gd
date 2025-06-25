@@ -3,6 +3,7 @@ extends Node
 @onready var player : CharacterBody2D = get_node("/root/Node2D/Player")
 # Needed so the enemies can detect when they are being attacked
 @onready var attack_range : Area2D = get_node("/root/Node2D/Player/Attack Range")
+# Needed so the enemies can check when they have damaged the player
 @onready var hit_box : Area2D = get_node("/root/Node2D/Player/Hit Box")
 
 ## Before anything else, wait for the first process frame since globals load first
@@ -30,7 +31,6 @@ func player_health(s:int) -> void:
 		_player_die()
 	else:
 		player.health += s
-	print(player.health)
 
 
 ## Handles player death

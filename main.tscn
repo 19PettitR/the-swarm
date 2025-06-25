@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://c3f0kuo0h1p3f" path="res://Player/player.tscn" id="1_7u0w7"]
 [ext_resource type="Texture2D" uid="uid://mq86p64y4k0p" path="res://Level/Backgrounds/Facility.png" id="1_fo4jl"]
 [ext_resource type="Texture2D" uid="uid://83jlsotu8ofp" path="res://Level/tilemap.png" id="2_kbh2p"]
-[ext_resource type="PackedScene" uid="uid://dmutaerqf1ss4" path="res://Level/climbing_area.tscn" id="4_lo3lw"]
+[ext_resource type="PackedScene" uid="uid://dmutaerqf1ss4" path="res://Level/Climbing Area/climbing_area.tscn" id="4_lo3lw"]
 [ext_resource type="PackedScene" uid="uid://bunul34g0qaq6" path="res://Enemies/Level 1/enemy_1.tscn" id="5_wpghv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5nyum"]
@@ -132,6 +132,6 @@ scale = Vector2(0.58227, 0.58227)
 speed = 170.0
 max_enemy_hitpoints = 3
 enemy_attack_chance = 80
-enemy_attack_boost = 2
+enemy_attack_cooldown_length = 3.0
 left_boundary = 770.0
 right_boundary = 1800.0

@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ct8i2nhmkwntj"]
 
-[ext_resource type="Script" path="res://Enemies/detection_range.gd" id="1_k6jcl"]
+[ext_resource type="Script" path="res://Enemies/Areas/detection_range.gd" id="1_k6jcl"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fwu3n"]
 

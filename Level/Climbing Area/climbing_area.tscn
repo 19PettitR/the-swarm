@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmutaerqf1ss4"]
 
-[ext_resource type="Script" path="res://Level/climbing_area.gd" id="1_ghsxi"]
+[ext_resource type="Script" path="res://Level/Climbing Area/climbing_area.gd" id="1_ghsxi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xhk3o"]
 

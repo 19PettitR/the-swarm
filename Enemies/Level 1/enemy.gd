@@ -26,7 +26,7 @@ class_name Enemy extends CharacterBody2D
 # Used to calculate the chance of an enemy attacking
 @export var enemy_attack_chance : int = 100
 @export var enemy_attack_cooldown_length : float = 1.5
-@export var enemy_attack_boost : int = 3
+@export var enemy_attack_boost : float = 3
 
 ## Variables relating to the movement of the enemy: boundaries it cannot pass
 @export_category("Movement Range")
@@ -151,7 +151,7 @@ func _physics_process(delta: float) -> void:
 						# Call a subroutine to handle the attack timings
 						_attack_timings()
 						# Cause the enemy to lunge at the player; overwrites previous velocity.x
-						velocity.x = velocity.x * enemy_attack_boost * relative_player_direction
+						velocity.x = velocity.x * enemy_attack_boost
 						velocity.y = randi_range(-400, -50)
 		
 		# If enemy_is_attacking
@@ -166,22 +166,19 @@ func _physics_process(delta: float) -> void:
 ## Responsible for handling timings when attacking the player
 func _attack_timings() -> void:
 	
-	print("im attacking")
+	# Start the enemy attacking by changing the variables
 	enemy_is_attacking = true
 	enemy_attack_cooldown = true
 	
-	velocity.x = velocity.x * enemy_attack_boost * relative_player_direction
-	velocity.y = randi_range(0, 50)
-	
+	# Handle the timer for when the enemy is actively attacking
 	enemy_attack_timer.start()
 	await enemy_attack_timer.timeout
 	enemy_is_attacking = false
-	print("im not attacking")
 	
+	# Handle the enemy attack's cooldown timer
 	enemy_attack_cooldown_timer.start(enemy_attack_cooldown_length)
 	await enemy_attack_cooldown_timer.timeout
 	enemy_attack_cooldown = false
-	print("done cooling down")
 
 
 ## Allows the enemy to check to attack the player

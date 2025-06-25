@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqk7rg8jx3l16"]
 
-[ext_resource type="Script" path="res://Enemies/hit_box.gd" id="1_i4c5l"]
+[ext_resource type="Script" path="res://Enemies/Areas/hit_box.gd" id="1_i4c5l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_icu0p"]
 

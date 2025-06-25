@@ -29,7 +29,7 @@ limit_right = 4608
 limit_bottom = 1944
 
 [node name="Attack Range" parent="." instance=ExtResource("3_5fr8b")]
-scale = Vector2(6.83476, 6.83476)
+scale = Vector2(10.4468, 6.34008)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
