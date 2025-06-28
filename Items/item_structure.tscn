@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbj6j6ud43kwc"]
+
+[ext_resource type="Script" path="res://Items/item.gd" id="1_e87ul"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n5kx5"]
+
+[node name="Item" type="Area2D"]
+script = ExtResource("1_e87ul")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_n5kx5")

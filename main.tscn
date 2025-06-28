@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://bodn1k2kmnb7x"]
+[gd_scene load_steps=12 format=3 uid="uid://bodn1k2kmnb7x"]
 
 [ext_resource type="PackedScene" uid="uid://c3f0kuo0h1p3f" path="res://Player/player.tscn" id="1_7u0w7"]
 [ext_resource type="Texture2D" uid="uid://mq86p64y4k0p" path="res://Level/Backgrounds/Facility.png" id="1_fo4jl"]
 [ext_resource type="Texture2D" uid="uid://83jlsotu8ofp" path="res://Level/tilemap.png" id="2_kbh2p"]
 [ext_resource type="PackedScene" uid="uid://dmutaerqf1ss4" path="res://Level/Climbing Area/climbing_area.tscn" id="4_lo3lw"]
 [ext_resource type="PackedScene" uid="uid://bunul34g0qaq6" path="res://Enemies/Level 1/enemy_1.tscn" id="5_wpghv"]
+[ext_resource type="PackedScene" uid="uid://dbj6j6ud43kwc" path="res://Items/item_structure.tscn" id="6_3k1rt"]
+[ext_resource type="Texture2D" uid="uid://b0dnfemddw3vj" path="res://Items/Strength/dumbbells.png" id="7_uadgo"]
+[ext_resource type="Texture2D" uid="uid://8jk88j6c2el4" path="res://Items/Healing/medical bag.png" id="8_2g1ff"]
+[ext_resource type="Texture2D" uid="uid://wh7h1f58x2m" path="res://Items/Collectibles/radish.png" id="9_t4v78"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5nyum"]
 texture = ExtResource("2_kbh2p")
@@ -135,3 +139,38 @@ enemy_attack_chance = 80
 enemy_attack_cooldown_length = 3.0
 left_boundary = 770.0
 right_boundary = 1800.0
+
+[node name="Item" parent="." instance=ExtResource("6_3k1rt")]
+position = Vector2(656, 1609)
+scale = Vector2(2.84043, 2.84043)
+item_id = "ST00"
+item_heal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Item"]
+texture_filter = 1
+position = Vector2(2.11236, 0)
+texture = ExtResource("7_uadgo")
+
+[node name="Item2" parent="." instance=ExtResource("6_3k1rt")]
+texture_filter = 1
+position = Vector2(1925, 1770)
+scale = Vector2(3.0186, 3.0186)
+item_id = "HE00"
+item_strength = 0
+item_heal = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="Item2"]
+position = Vector2(1.52903, 1.91129)
+texture = ExtResource("8_2g1ff")
+
+[node name="Item3" parent="." instance=ExtResource("6_3k1rt")]
+position = Vector2(541, 1894)
+scale = Vector2(3.09156, 3.09156)
+item_id = "CL00"
+item_strength = 0
+item_heal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Item3"]
+texture_filter = 1
+position = Vector2(-1.97425e-05, 2.58769)
+texture = ExtResource("9_t4v78")
