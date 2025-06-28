@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://l4qjftvfjxod" path="res://Enemies/Level 1/enemy_1.png" id="1_5ija4"]
 [ext_resource type="Script" path="res://Enemies/Level 1/enemy.gd" id="1_y16c4"]
 [ext_resource type="PackedScene" uid="uid://dqk7rg8jx3l16" path="res://Enemies/Areas/Hit Box.tscn" id="3_cuqut"]
-[ext_resource type="Script" path="res://Enemies/Level 1/attack_box.gd" id="3_xy0t4"]
+[ext_resource type="Script" path="res://Enemies/Level 1/attack_range.gd" id="3_xy0t4"]
 [ext_resource type="PackedScene" uid="uid://ct8i2nhmkwntj" path="res://Enemies/Areas/Detection Range.tscn" id="4_ra8c5"]
-[ext_resource type="PackedScene" uid="uid://bg62inay80wli" path="res://Enemies/Areas/Attack Range.tscn" id="5_awd0v"]
+[ext_resource type="PackedScene" uid="uid://bg62inay80wli" path="res://Enemies/Areas/Attack Box.tscn" id="5_awd0v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p505t"]
 size = Vector2(80, 80)
@@ -23,10 +23,10 @@ texture = ExtResource("1_5ija4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_p505t")
 
-[node name="Attack Box" type="Area2D" parent="."]
+[node name="Attack Range" type="Area2D" parent="."]
 script = ExtResource("3_xy0t4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack Box"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack Range"]
 shape = SubResource("RectangleShape2D_kaloc")
 debug_color = Color(0.990857, 0, 0.273061, 0.42)
 
@@ -36,9 +36,12 @@ scale = Vector2(-4.79576, -4.79576)
 [node name="DetectionRange" parent="." instance=ExtResource("4_ra8c5")]
 scale = Vector2(64.821, -25.0297)
 
-[node name="Attack Range" parent="." instance=ExtResource("5_awd0v")]
+[node name="Attack Box" parent="." instance=ExtResource("5_awd0v")]
 scale = Vector2(11.1413, 15.2153)
 
 [node name="Enemy Attack Timer" type="Timer" parent="."]
 
 [node name="Enemy Attack Cooldown Timer" type="Timer" parent="."]
+
+[node name="Hit Timer" type="Timer" parent="."]
+wait_time = 0.5

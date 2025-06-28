@@ -31,6 +31,7 @@ func player_health(s:int) -> void:
 		_player_die()
 	else:
 		player.health += s
+	print(player.health)
 
 
 ## Handles player death

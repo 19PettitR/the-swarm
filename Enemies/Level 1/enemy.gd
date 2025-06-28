@@ -5,21 +5,24 @@ class_name Enemy extends CharacterBody2D
 # Needed to find when the player is in range
 @onready var detection_range: DetectionRange = $DetectionRange
 # Needed to attack the player
-@onready var attack_range: AttackRange = $"Attack Range"
+@onready var attack_box: AttackBox = $"Attack Box"
 # Needed to chase the player
 @onready var player = PlayerManager.player
+# Modulate the enemy when it has been hit
+@onready var sprite: Sprite2D = $Sprite2D
 
-# Timers for controlling enemy attacks
+# Timers for controlling enemy attack and enemy hit
 @onready var enemy_attack_timer: Timer = $"Enemy Attack Timer"
 @onready var enemy_attack_cooldown_timer: Timer = $"Enemy Attack Cooldown Timer"
+@onready var hit_timer: Timer = $"Hit Timer"
 
-
-## Basic variables related to the enemy: speed, strength, hitpoints
+## Basic variables related to the enemy
 @export_category("Stats")
 @export var speed : float = 180
 @export var chase_speed : float = 250
 @export var enemy_strength : float = 10
 @export var max_enemy_hitpoints : int = 1
+@export var knockback_multiplier : int = -2
 
 ## Variables relating to the enemy's attack
 @export_category("Attack")
@@ -52,6 +55,7 @@ var enemy_attack_cooldown : bool = false
 var enemy_hitpoints : int = max_enemy_hitpoints
 # Ensures that the enemy only takes damage once during player attacks
 var enemy_immune : bool = false
+var enemy_hit : bool = false
 var dead : bool = false
 
 # Tracks whether the player is within the enemy's hitbox or not
@@ -72,8 +76,8 @@ func _ready() -> void:
 	detection_range.not_seen.connect(_player_gone)
 	
 	# Signals related to enemy being able to attack player
-	attack_range.can_attack.connect(_look_to_attack)
-	attack_range.cannot_attack.connect(_stop_looking_to_attack)
+	attack_box.can_attack.connect(_look_to_attack)
+	attack_box.cannot_attack.connect(_stop_looking_to_attack)
 	
 	# enemy_hitpoints needs to be set during _ready because max_enemy_hitpoints is export
 	enemy_hitpoints = max_enemy_hitpoints
@@ -97,7 +101,7 @@ func _process(_delta: float) -> void:
 		if player.is_attacking:
 			_take_damage()
 			enemy_immune = true
-			
+
 
 ## Responsible for all enemy movement
 func _physics_process(delta: float) -> void:
@@ -106,55 +110,61 @@ func _physics_process(delta: float) -> void:
 		# Causes the enemy to fall and not remain static (only to be used when spawning)
 		if not is_on_floor():
 			velocity += get_gravity() * delta
-		
-		# Normal chasing and patrolling when the enemy is not attacking
-		if not enemy_is_attacking:
-			# If the player is not in range, the enemy should patrol up and down
-			if not player_within_range:
-				# If the enemy is further left of the left boundary, they should start moving right
-				if global_position.x <= left_boundary:
-					direction = 1
-				# If the enemy is further right of the right boundary, they should start moving left
-				elif global_position.x >= right_boundary:
-					direction = -1
-				
-				velocity.x = speed * direction
-			
-			# If the player is in range, they should be followed
-			else:
-				# If player is to the left
-				if relative_player_direction == -1:
-					# If left boundary reached
+		# Knockback takes priority over other movement
+		if not enemy_hit:
+			# Normal chasing and patrolling when the enemy is not attacking
+			if not enemy_is_attacking:
+				# If the player is not in range, the enemy should patrol up and down
+				if not player_within_range:
+					# If the enemy is further left of the left boundary, they should start moving right
 					if global_position.x <= left_boundary:
-						# Do not follow player
-						direction = 0
-					else:
-						direction = -1
-				# If player is to the right
-				elif relative_player_direction == 1:
-					# If right boundary reached
-					if global_position.x >= right_boundary:
-						# Do not follow player
-						direction = 0
-					else:
 						direction = 1
-				# If player is in the same vertical line, do not move
+					# If the enemy is further right of the right boundary, they should start moving left
+					elif global_position.x >= right_boundary:
+						direction = -1
+					
+					velocity.x = speed * direction
+				
+				# If the player is in range, they should be followed
 				else:
-					direction = 0
-				
-				velocity.x = chase_speed * direction
-				
-				# Random chance of the enemy attacking
-				if enemy_can_attack and not enemy_attack_cooldown:
-					# A 1 in [enemy_attack_chance] chance of the enemy attacking
-					if randi_range(1, enemy_attack_chance) == 1:
-						# Call a subroutine to handle the attack timings
-						_attack_timings()
-						# Cause the enemy to lunge at the player; overwrites previous velocity.x
-						velocity.x = velocity.x * enemy_attack_boost
-						velocity.y = randi_range(-400, -50)
-		
-		# If enemy_is_attacking
+					# If player is to the left
+					if relative_player_direction == -1:
+						# If left boundary reached
+						if global_position.x <= left_boundary:
+							# Do not follow player
+							direction = 0
+						else:
+							direction = -1
+					# If player is to the right
+					elif relative_player_direction == 1:
+						# If right boundary reached
+						if global_position.x >= right_boundary:
+							# Do not follow player
+							direction = 0
+						else:
+							direction = 1
+					# If player is in the same vertical line, do not move
+					else:
+						direction = 0
+					
+					velocity.x = chase_speed * direction
+					
+					# Random chance of the enemy attacking
+					if enemy_can_attack and not enemy_attack_cooldown:
+						# A 1 in [enemy_attack_chance] chance of the enemy attacking
+						if randi_range(1, enemy_attack_chance) == 1:
+							# Call a subroutine to handle the attack timings
+							_attack_timings()
+							# Cause the enemy to lunge at the player; overwrites previous velocity.x
+							velocity.x = velocity.x * enemy_attack_boost
+							velocity.y = randi_range(-400, -50)
+			
+			# If enemy_is_attacking
+			else:
+				# Prevent the enemy from leaving their boundary
+				if global_position.x <= left_boundary or global_position.x >= right_boundary:
+					velocity.x = 0
+		# If enemy has been hit (during knockback)
 		else:
 			# Prevent the enemy from leaving their boundary
 			if global_position.x <= left_boundary or global_position.x >= right_boundary:
@@ -192,12 +202,25 @@ func _stop_looking_to_attack() -> void:
 
 ## Makes the enemy take damage when the player has attacked them
 func _take_damage() -> void:
+
 	# Kill the enemy if their hitpoints drop below 0
 	if enemy_hitpoints - player.attack_strength <= 0:
 		_die()
 	# If the enemy does not die, take their hitpoints away
 	else:
 		enemy_hitpoints -= player.attack_strength
+		
+		# Set enemy_hit so that the physics process subroutine causes the enemy to be knocked back
+		enemy_hit = true
+		# Make the enemy pink so the player knows they have been hit and cannot be hit again
+		sprite.set_modulate("pink")
+		# Cause the enemy to fly backwards at 2 times their original velocity.x
+		velocity.x = velocity.x * knockback_multiplier
+		velocity.y = randi_range(-300, -100)
+		# The knockback should last the length of hit_timer
+		hit_timer.start()
+		await hit_timer.timeout
+		enemy_hit = false
 
 
 ## Starts the enemy checking for damage to be taken
@@ -211,6 +234,8 @@ func _stop_checking_for_damage() -> void:
 ## Makes the enemy vulnerable again when the player has stopped attacking
 func _be_vulnerable():
 	enemy_immune = false
+	# Enemy will be pink if they have been hit; they should return to original colour
+	sprite.set_modulate("white")
 
 
 ## Responsible for handling the enemy's death

@@ -16,8 +16,6 @@ signal attack_end
 @export var speed : float = 300.0
 @export var jump_speed : float = -420.0
 @export var gravity_multiplier : float = 0.8
-# The amount that the player is knocked back when they touch an enemy
-@export var knockback_speed : float = 400.0
 
 ## These variables are related to dashing, can be changed in the inspector panel
 @export_category("Dash")
