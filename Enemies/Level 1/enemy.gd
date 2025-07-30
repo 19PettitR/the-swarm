@@ -44,6 +44,8 @@ var player_within_range : bool = false
 var relative_player_direction : int
 # The direction that the enemy is moving
 var direction : int = 1
+# Tracks whether the enemy is at a door or not
+var at_door : bool = false
 
 # Stores whether the player can be attacked (if they are within attack range)
 var enemy_can_attack : bool = false
@@ -112,58 +114,70 @@ func _physics_process(delta: float) -> void:
 			velocity += get_gravity() * delta
 		# Knockback takes priority over other movement
 		if not enemy_hit:
-			# Normal chasing and patrolling when the enemy is not attacking
-			if not enemy_is_attacking:
-				# If the player is not in range, the enemy should patrol up and down
-				if not player_within_range:
-					# If the enemy is further left of the left boundary, they should start moving right
-					if global_position.x <= left_boundary:
-						direction = 1
-					# If the enemy is further right of the right boundary, they should start moving left
-					elif global_position.x >= right_boundary:
-						direction = -1
-					
-					velocity.x = speed * direction
-				
-				# If the player is in range, they should be followed
-				else:
-					# If player is to the left
-					if relative_player_direction == -1:
-						# If left boundary reached
+			# Must turn around at a door, else enemy will become stuck
+			if not at_door:
+				# Normal chasing and patrolling when the enemy is not attacking
+				if not enemy_is_attacking:
+					# If the player is not in range, the enemy should patrol up and down
+					if not player_within_range:
+						# If the enemy is further left of the left boundary, they should start moving right
 						if global_position.x <= left_boundary:
-							# Do not follow player
-							direction = 0
-						else:
-							direction = -1
-					# If player is to the right
-					elif relative_player_direction == 1:
-						# If right boundary reached
-						if global_position.x >= right_boundary:
-							# Do not follow player
-							direction = 0
-						else:
 							direction = 1
-					# If player is in the same vertical line, do not move
+						# If the enemy is further right of the right boundary, they should start moving left
+						elif global_position.x >= right_boundary:
+							direction = -1
+						
+						velocity.x = speed * direction
+					
+					# If the player is in range, they should be followed
 					else:
-						direction = 0
-					
-					velocity.x = chase_speed * direction
-					
-					# Random chance of the enemy attacking
-					if enemy_can_attack and not enemy_attack_cooldown:
-						# A 1 in [enemy_attack_chance] chance of the enemy attacking
-						if randi_range(1, enemy_attack_chance) == 1:
-							# Call a subroutine to handle the attack timings
-							_attack_timings()
-							# Cause the enemy to lunge at the player; overwrites previous velocity.x
-							velocity.x = velocity.x * enemy_attack_boost
-							velocity.y = randi_range(-400, -50)
-			
-			# If enemy_is_attacking
+						# If player is to the left
+						if relative_player_direction == -1:
+							# If left boundary reached
+							if global_position.x <= left_boundary:
+								# Do not follow player
+								direction = 0
+							else:
+								direction = -1
+						# If player is to the right
+						elif relative_player_direction == 1:
+							# If right boundary reached
+							if global_position.x >= right_boundary:
+								# Do not follow player
+								direction = 0
+							else:
+								direction = 1
+						# If player is in the same vertical line, do not move
+						else:
+							direction = 0
+						
+						velocity.x = chase_speed * direction
+						
+						# Random chance of the enemy attacking
+						if enemy_can_attack and not enemy_attack_cooldown:
+							# A 1 in [enemy_attack_chance] chance of the enemy attacking
+							if randi_range(1, enemy_attack_chance) == 1:
+								# Call a subroutine to handle the attack timings
+								_attack_timings()
+								# Cause the enemy to lunge at the player; overwrites previous velocity.x
+								velocity.x = velocity.x * enemy_attack_boost
+								velocity.y = randi_range(-400, -50)
+				
+				# If enemy_is_attacking
+				else:
+					# Prevent the enemy from leaving their boundary
+					if global_position.x <= left_boundary or global_position.x >= right_boundary:
+						velocity.x = 0
+			# If the enemy is at a door
 			else:
-				# Prevent the enemy from leaving their boundary
+				# Move like normal, direciton will be away from the door
+				velocity.x = speed * direction
+				# If distance between boundary and door is less than detection range
 				if global_position.x <= left_boundary or global_position.x >= right_boundary:
-					velocity.x = 0
+					at_door = false
+				# Once player is not detected, normal movement resumes
+				if not player_within_range:
+					at_door = false
 		# If enemy has been hit (during knockback)
 		else:
 			# Prevent the enemy from leaving their boundary
@@ -221,6 +235,12 @@ func _take_damage() -> void:
 		hit_timer.start()
 		await hit_timer.timeout
 		enemy_hit = false
+
+
+## Makes the enemy turn around when they reach a door (so they dont get stuck)
+func turn_around():
+	at_door = true
+	direction = direction * -1
 
 
 ## Starts the enemy checking for damage to be taken

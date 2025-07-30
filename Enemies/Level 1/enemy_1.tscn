@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dqk7rg8jx3l16" path="res://Enemies/Areas/Hit Box.tscn" id="3_cuqut"]
 [ext_resource type="Script" path="res://Enemies/Level 1/attack_range.gd" id="3_xy0t4"]
 [ext_resource type="PackedScene" uid="uid://ct8i2nhmkwntj" path="res://Enemies/Areas/Detection Range.tscn" id="4_ra8c5"]
-[ext_resource type="PackedScene" uid="uid://bg62inay80wli" path="res://Enemies/Areas/Attack Box.tscn" id="5_awd0v"]
+[ext_resource type="PackedScene" path="res://Enemies/Areas/Attack Box.tscn" id="5_awd0v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p505t"]
 size = Vector2(80, 80)

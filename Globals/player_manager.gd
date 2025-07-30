@@ -29,6 +29,7 @@ func player_health(s:int) -> void:
 	# Player should die if their health goes below 0
 	if player.health + s <= 0:
 		_player_die()
+	# Player's health should be set to maximum if it reaches above its maximum
 	elif player.health + s >= player.max_health:
 		player.health = player.max_health
 	else:
@@ -43,7 +44,9 @@ func _player_die() -> void:
 
 ## Adds items to the player's inventory
 func item_add(id:String, strength:int, heal:int) -> void:
+	# Add the item to the inventory
 	player.inventory.append(id)
+	# Update the necessary player variables
 	player.attack_strength += strength
 	player_health(heal)
 	print(player.inventory)
