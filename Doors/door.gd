@@ -1,4 +1,4 @@
-extends Area2D
+class_name Door extends Area2D
 
 # Reference to the player to check if the player touched the door
 @onready var player = PlayerManager.player
