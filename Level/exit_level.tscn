@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://upff8be0o8bj"]
+
+[ext_resource type="Script" path="res://Level/exit_level.gd" id="1_rrq6x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f83wl"]
+
+[node name="ExitLevel" type="Area2D"]
+script = ExtResource("1_rrq6x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f83wl")
+debug_color = Color(0.735431, 0.46973, 3.85046e-07, 0.42)

@@ -1,11 +1,11 @@
 extends Node
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+## Handles the when the player exits the level
+func end_level(l:int) -> void:
+	print("player has exited level ", l)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+## Handles starting a new level (will have paramter); handles player death (no parameter)
+func start_level(l:int) -> void:
+	print("player has died on level ", l)

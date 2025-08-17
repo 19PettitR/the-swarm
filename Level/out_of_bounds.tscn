@@ -1,3 +1,12 @@
-[gd_scene format=3 uid="uid://bo24xpsaoemoq"]
+[gd_scene load_steps=3 format=3 uid="uid://bo24xpsaoemoq"]
+
+[ext_resource type="Script" path="res://Level/out_of_bounds.gd" id="1_ij81l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_omu6q"]
 
 [node name="OutOfBounds" type="Area2D"]
+script = ExtResource("1_ij81l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_omu6q")
+debug_color = Color(0.982863, 0, 0.358327, 0.42)
