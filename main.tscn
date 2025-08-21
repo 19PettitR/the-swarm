@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dbj6j6ud43kwc" path="res://Items/item_structure.tscn" id="6_3k1rt"]
 [ext_resource type="Texture2D" uid="uid://b0dnfemddw3vj" path="res://Items/Strength/dumbbells.png" id="7_uadgo"]
 [ext_resource type="Texture2D" uid="uid://8jk88j6c2el4" path="res://Items/Healing/medical bag.png" id="8_2g1ff"]
-[ext_resource type="Texture2D" uid="uid://wh7h1f58x2m" path="res://Items/Collectibles/radish.png" id="9_t4v78"]
+[ext_resource type="Texture2D" uid="uid://b18e5nat2winl" path="res://Items/Collectibles/radish.png" id="9_t4v78"]
 [ext_resource type="PackedScene" uid="uid://d4bgfk4pag04u" path="res://Doors/Door.tscn" id="10_qqe15"]
 [ext_resource type="Texture2D" uid="uid://ce6rk7jeqyfeu" path="res://Doors/door.png" id="11_7c0kg"]
 [ext_resource type="Texture2D" uid="uid://d2qmuje6peukk" path="res://Items/Keys/key.png" id="12_dlh43"]
@@ -73,11 +73,14 @@ physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_5nyum")
 
 [node name="Node2D" type="Node2D"]
+position = Vector2(-4, -7)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_filter = 1
-offset_right = 4608.0
-offset_bottom = 1944.0
+offset_left = -9.0
+offset_top = -15.0
+offset_right = 4599.0
+offset_bottom = 1929.0
 texture = ExtResource("1_fo4jl")
 
 [node name="Player" parent="." instance=ExtResource("1_7u0w7")]
@@ -142,9 +145,21 @@ right_boundary = 1800.0
 position = Vector2(656, 1609)
 scale = Vector2(2.84043, 2.84043)
 item_id = "ST00"
+item_strength = 11
 item_heal = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Dumbbell"]
+texture_filter = 1
+position = Vector2(2.11236, 0)
+texture = ExtResource("7_uadgo")
+
+[node name="Dumbbell2" parent="." instance=ExtResource("6_3k1rt")]
+position = Vector2(355, 1897)
+scale = Vector2(2.84043, 2.84043)
+item_id = "ST02"
+item_heal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Dumbbell2"]
 texture_filter = 1
 position = Vector2(2.11236, 0)
 texture = ExtResource("7_uadgo")
@@ -169,6 +184,31 @@ item_strength = 0
 item_heal = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Radish"]
+texture_filter = 1
+position = Vector2(-1.97425e-05, 2.58769)
+texture = ExtResource("9_t4v78")
+
+[node name="Radish2" parent="." instance=ExtResource("6_3k1rt")]
+position = Vector2(173, 1538)
+scale = Vector2(3.09156, 3.09156)
+item_id = "CL06"
+item_strength = 0
+item_heal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Radish2"]
+texture_filter = 1
+position = Vector2(0.646923, 2.58769)
+scale = Vector2(0.997842, 0.997842)
+texture = ExtResource("9_t4v78")
+
+[node name="Radish3" parent="." instance=ExtResource("6_3k1rt")]
+position = Vector2(64, 1890)
+scale = Vector2(3.09156, 3.09156)
+item_id = "CL03"
+item_strength = 0
+item_heal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Radish3"]
 texture_filter = 1
 position = Vector2(-1.97425e-05, 2.58769)
 texture = ExtResource("9_t4v78")
@@ -200,23 +240,9 @@ texture = ExtResource("12_dlh43")
 position = Vector2(629, 1858)
 
 [node name="ExitLevel2" parent="." instance=ExtResource("13_tk4yv")]
-position = Vector2(726, 1856)
+position = Vector2(787, 1857)
 exit_level = 2
-
-[node name="ExitLevel3" parent="." instance=ExtResource("13_tk4yv")]
-position = Vector2(827, 1856)
-exit_level = 3
 
 [node name="OutOfBounds" parent="." instance=ExtResource("14_555ci")]
 position = Vector2(2619, 1970)
 scale = Vector2(17.4069, 2.567)
-
-[node name="OutOfBounds2" parent="." instance=ExtResource("14_555ci")]
-position = Vector2(2185, 1819)
-scale = Vector2(2.11541, 2.0029)
-level = 2
-
-[node name="OutOfBounds3" parent="." instance=ExtResource("14_555ci")]
-position = Vector2(2299, 1818)
-scale = Vector2(2.06659, 1.63487)
-level = 3
