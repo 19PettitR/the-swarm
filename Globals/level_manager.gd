@@ -1,5 +1,9 @@
 extends Node
 
+var l1_start : Vector2 = Vector2(55,1891)
+var l2_start : Vector2 = Vector2(55, 1378)
+var l3_start : Vector2 = Vector2(55, 419)
+
 ## Variables used to validate save file
 var save_file_valid : bool = true
 var validate_length : bool = false
@@ -8,6 +12,12 @@ var validate_levels : bool = false
 var validate_strength_items : bool = false
 var validate_strength_variable : bool = false
 var validate_collectibles : bool = false
+
+## Each item in the game can access this array and check whether it has been collected
+var item_status : Array[int] = [0,0,0,0,0,0,0,0,0,0,0]
+
+## Position that objects should go to to be out of sight of the player (to "disappear")
+var disappear_position : Vector2 = Vector2(120,2400)
 
 ## Checks save file exists, is in correct format. Replace if not.
 func _ready() -> void:
@@ -94,6 +104,8 @@ func _ready() -> void:
 		var save_file = FileAccess.open("user://save_game.txt", FileAccess.WRITE)
 		save_file.store_string("000;01;0000;0000000")
 		save_file.close()
+		
+	_game_load()
 
 
 # temporary, to test deletion
@@ -106,6 +118,30 @@ func _process(_delta) -> void:
 		print("data deleted")
 		# Close the game
 		get_tree().quit()
+
+
+## Responsible for loading the player's begin_attack_strength and items
+func _game_load() -> void:
+	
+	# Open the save file and read its contents to load data
+	var save_file = FileAccess.open("user://save_game.txt", FileAccess.READ)
+	var content = save_file.get_as_text()
+	
+	# Set the player's begin_attack_strength to the strength stored in the save file
+	PlayerManager.player.begin_attack_strength = int(content[4]+content[5])
+	print(PlayerManager.player.begin_attack_strength)
+	
+	# Loop through strengthening items, check whether each has been collected or not
+	for i in range(0,4):
+		# If the strengthening item has been collected
+		if content[i+7] == "1":
+			item_status[i] = 1
+	# Loop through collectibles, check whether each has been collected or not
+	for i in range(0,7):
+		if content[i+12] == "1":
+			item_status[i+4] = 1
+	print(item_status)
+	save_file.close()
 
 
 ## Handles the when the player exits the level

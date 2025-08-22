@@ -27,5 +27,4 @@ func _open(p:Node2D) -> void:
 
 ## Once the door has been unlocked, change position so it cannot be seen
 func _unlock() -> void:
-	global_position.x = 120
-	global_position.y = 2400
+	global_position = LevelManager.disappear_position

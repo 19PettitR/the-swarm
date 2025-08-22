@@ -13,9 +13,24 @@ var collected : bool = false
 var my_position : Vector2
 
 
-## Connects the body_entered signal to the _collection subroutine
+## Connects the body_entered signal to the _collection subroutine, sets the collected variable
 func _ready() -> void:
 	body_entered.connect(_collection)
+	
+	# If the item is a strengthening item, check the corresponding index of the level manager's item_status
+	if item_id.begins_with("ST"):
+		# Item collected if 1
+		if LevelManager.item_status[int(item_id[2]+item_id[3])] == 1:
+			# Set the collected variable and move out of the player's sight
+			collected = true
+			global_position = LevelManager.disappear_position
+	# If the item is a collectible, check the corresponding index of the level amanger's item_status
+	elif item_id.begins_with("CL"):
+		# Item collected if 1
+		if LevelManager.item_status[int(item_id[2]+item_id[3])+4] == 1:
+			# Set the collected variable and move out of the player's sight
+			collected = true
+			global_position = LevelManager.disappear_position
 
 
 ## Responsible for handling the item's collection
@@ -24,5 +39,4 @@ func _collection(p:Node2D) -> void:
 		# Add the item to the player's inventory and update their variables
 		PlayerManager.item_add(item_id, item_strength, item_heal)
 		# Change the position of the item so it is out of the player's sight
-		global_position.x = 120
-		global_position.y = 2400
+		global_position = LevelManager.disappear_position

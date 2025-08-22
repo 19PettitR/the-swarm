@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 PlayerManager="*res://Globals/player_manager.gd"
 LevelManager="*res://Globals/level_manager.gd"
 PlayerHud="*res://Globals/player_hud.gd"
+MainMenu="*res://Globals/main_menu.gd"
 
 [display]
 

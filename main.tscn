@@ -85,7 +85,7 @@ texture = ExtResource("1_fo4jl")
 
 [node name="Player" parent="." instance=ExtResource("1_7u0w7")]
 z_index = 1
-position = Vector2(223, 1884)
+position = Vector2(60, 419)
 scale = Vector2(0.634594, 0.629166)
 dash_deceleration_multiplier = 50
 
@@ -142,7 +142,7 @@ left_boundary = 770.0
 right_boundary = 1800.0
 
 [node name="Dumbbell" parent="." instance=ExtResource("6_3k1rt")]
-position = Vector2(656, 1609)
+position = Vector2(76, 1671)
 scale = Vector2(2.84043, 2.84043)
 item_id = "ST00"
 item_strength = 11
@@ -154,12 +154,34 @@ position = Vector2(2.11236, 0)
 texture = ExtResource("7_uadgo")
 
 [node name="Dumbbell2" parent="." instance=ExtResource("6_3k1rt")]
-position = Vector2(355, 1897)
+position = Vector2(156, 1671)
+scale = Vector2(2.84043, 2.84043)
+item_id = "ST01"
+item_heal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Dumbbell2"]
+texture_filter = 1
+position = Vector2(2.11236, 0)
+texture = ExtResource("7_uadgo")
+
+[node name="Dumbbell3" parent="." instance=ExtResource("6_3k1rt")]
+position = Vector2(231, 1672)
 scale = Vector2(2.84043, 2.84043)
 item_id = "ST02"
 item_heal = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Dumbbell2"]
+[node name="Sprite2D" type="Sprite2D" parent="Dumbbell3"]
+texture_filter = 1
+position = Vector2(2.11236, 0)
+texture = ExtResource("7_uadgo")
+
+[node name="Dumbbell4" parent="." instance=ExtResource("6_3k1rt")]
+position = Vector2(306, 1672)
+scale = Vector2(2.84043, 2.84043)
+item_id = "ST03"
+item_heal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Dumbbell4"]
 texture_filter = 1
 position = Vector2(2.11236, 0)
 texture = ExtResource("7_uadgo")
@@ -177,7 +199,7 @@ position = Vector2(1.52903, 1.91129)
 texture = ExtResource("8_2g1ff")
 
 [node name="Radish" parent="." instance=ExtResource("6_3k1rt")]
-position = Vector2(541, 1894)
+position = Vector2(77, 1744)
 scale = Vector2(3.09156, 3.09156)
 item_id = "CL00"
 item_strength = 0
@@ -189,9 +211,9 @@ position = Vector2(-1.97425e-05, 2.58769)
 texture = ExtResource("9_t4v78")
 
 [node name="Radish2" parent="." instance=ExtResource("6_3k1rt")]
-position = Vector2(173, 1538)
+position = Vector2(153, 1743)
 scale = Vector2(3.09156, 3.09156)
-item_id = "CL06"
+item_id = "CL01"
 item_strength = 0
 item_heal = 0
 
@@ -202,13 +224,61 @@ scale = Vector2(0.997842, 0.997842)
 texture = ExtResource("9_t4v78")
 
 [node name="Radish3" parent="." instance=ExtResource("6_3k1rt")]
-position = Vector2(64, 1890)
+position = Vector2(232, 1740)
+scale = Vector2(3.09156, 3.09156)
+item_id = "CL02"
+item_strength = 0
+item_heal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Radish3"]
+texture_filter = 1
+position = Vector2(-1.97425e-05, 2.58769)
+texture = ExtResource("9_t4v78")
+
+[node name="Radish4" parent="." instance=ExtResource("6_3k1rt")]
+position = Vector2(307, 1741)
 scale = Vector2(3.09156, 3.09156)
 item_id = "CL03"
 item_strength = 0
 item_heal = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Radish3"]
+[node name="Sprite2D" type="Sprite2D" parent="Radish4"]
+texture_filter = 1
+position = Vector2(-1.97425e-05, 2.58769)
+texture = ExtResource("9_t4v78")
+
+[node name="Radish5" parent="." instance=ExtResource("6_3k1rt")]
+position = Vector2(382, 1741)
+scale = Vector2(3.09156, 3.09156)
+item_id = "CL04"
+item_strength = 0
+item_heal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Radish5"]
+texture_filter = 1
+position = Vector2(-1.97425e-05, 2.58769)
+texture = ExtResource("9_t4v78")
+
+[node name="Radish6" parent="." instance=ExtResource("6_3k1rt")]
+position = Vector2(457, 1740)
+scale = Vector2(3.09156, 3.09156)
+item_id = "CL05"
+item_strength = 0
+item_heal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Radish6"]
+texture_filter = 1
+position = Vector2(-1.97425e-05, 2.58769)
+texture = ExtResource("9_t4v78")
+
+[node name="Radish7" parent="." instance=ExtResource("6_3k1rt")]
+position = Vector2(531, 1741)
+scale = Vector2(3.09156, 3.09156)
+item_id = "CL06"
+item_strength = 0
+item_heal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Radish7"]
 texture_filter = 1
 position = Vector2(-1.97425e-05, 2.58769)
 texture = ExtResource("9_t4v78")

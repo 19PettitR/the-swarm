@@ -6,10 +6,6 @@ extends Node
 # Needed so the enemies can check when they have damaged the player
 @onready var hit_box : Area2D = get_node("/root/Node2D/Player/Hit Box")
 
-## Before anything else, wait for the first process frame since globals load first
-func _ready() -> void:
-	await get_tree().process_frame
-
 
 ## Updates the player's climbing variables. Last 4 parameters are optional; they have default variables
 func update_climb(can_climb:bool, side:String="", pos:float=0, c_max:float=0, c_min:float=0 ) -> void:

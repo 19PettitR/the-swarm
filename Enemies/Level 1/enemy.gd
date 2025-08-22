@@ -261,8 +261,7 @@ func _be_vulnerable():
 ## Responsible for handling the enemy's death
 func _die() -> void:
 	dead = true
-	global_position.x = 120
-	global_position.y = 2400
+	global_position = LevelManager.disappear_position
 
 
 ## Responsible for resetting the enemy to its original state when the level is reset
