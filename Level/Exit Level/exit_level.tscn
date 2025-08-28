@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://upff8be0o8bj"]
 
-[ext_resource type="Script" path="res://Level/exit_level.gd" id="1_rrq6x"]
+[ext_resource type="Script" path="res://Level/Exit Level/exit_level.gd" id="1_rrq6x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f83wl"]
 

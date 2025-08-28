@@ -4,13 +4,17 @@ class_name Door extends Area2D
 @onready var player = PlayerManager.player
 # Reference to the key that unlocks the door
 @export var unlock_key : String
-# Used in later milestones
-var my_position
+
+# Used when respawning to move back to correct location
+var my_position : Vector2
 
 
 ## Connects the body_entered signal to the _open subroutine
 func _ready() -> void:
 	body_entered.connect(_open)
+	LevelManager.level_start.connect(_respawn)
+	# Save the original position of the door
+	my_position = global_position
 
 
 ## Responsible for opening the door when the player touches the door
@@ -28,3 +32,8 @@ func _open(p:Node2D) -> void:
 ## Once the door has been unlocked, change position so it cannot be seen
 func _unlock() -> void:
 	global_position = LevelManager.disappear_position
+
+
+## Respawn the door when level starts/restarts
+func _respawn() -> void:
+	global_position = my_position

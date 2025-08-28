@@ -29,7 +29,7 @@ signal attack_end
 ## These variables are related to attacking, can be changed in the inspector panel
 @export_category("Attack")
 # The strength of the player when they spawn into the level (when the game loads)
-@export var begin_attack_strength : int = 1
+@export var begin_attack_strength : int
 @export var attack_cooldown_length : float = 0.8
 
 var inventory : Array[String] = []
@@ -43,7 +43,7 @@ var dash_cooldown : bool = false
 
 var is_attacking : bool = false
 var attack_cooldown : bool = false
-var attack_strength : int = 1
+var attack_strength : int
 
 var in_climbing_range : bool = false
 var is_climbing : bool = false
@@ -171,10 +171,10 @@ func _dash() -> void:
 func _climb() -> void:
 	# When climbing a wall on the right side, player should be at the wall's position plus half their width
 	if climb_side == "right":
-		global_position.x = climb_position + 25
+		global_position.x = climb_position + 14
 	# When climbing a wall on the left side, player should be at the wall's position minus half their width
 	else:
-		global_position.x = climb_position - 25
+		global_position.x = climb_position - 14
 	
 	# If the player is above the maximum climb position, place them on the wall at the maximum
 	if global_position.y < climb_maximum:

@@ -1,8 +1,15 @@
 extends Node
 
+## Emits a signal to run all necessary subroutine (respawn, etc.)
+signal level_start
+
+## The start positions for each level
 var l1_start : Vector2 = Vector2(55,1891)
-var l2_start : Vector2 = Vector2(55, 1378)
-var l3_start : Vector2 = Vector2(55, 419)
+var l2_start : Vector2 = Vector2(4751, 1729)
+var l3_start : Vector2 = Vector2(9393, 1885)
+
+## The current level being played
+var current_level : int = 1
 
 ## Variables used to validate save file
 var save_file_valid : bool = true
@@ -105,7 +112,7 @@ func _ready() -> void:
 		save_file.store_string("000;01;0000;0000000")
 		save_file.close()
 		
-	_game_load()
+	start_level(1)
 
 
 # temporary, to test deletion
@@ -129,8 +136,7 @@ func _game_load() -> void:
 	
 	# Set the player's begin_attack_strength to the strength stored in the save file
 	PlayerManager.player.begin_attack_strength = int(content[4]+content[5])
-	print(PlayerManager.player.begin_attack_strength)
-	
+
 	# Loop through strengthening items, check whether each has been collected or not
 	for i in range(0,4):
 		# If the strengthening item has been collected
@@ -142,6 +148,28 @@ func _game_load() -> void:
 			item_status[i+4] = 1
 	print(item_status)
 	save_file.close()
+
+
+## Handles starting/restarting the level
+func start_level(l:int) -> void:
+	
+	# Change the current_level to the new one starting if necessary
+	if current_level != l:
+		current_level = l
+	
+	# Check which level is starting so player spawns at correct location
+	if current_level == 1:
+		PlayerManager.spawn(l1_start)
+	elif current_level == 2:
+		PlayerManager.spawn(l2_start)
+	elif current_level == 3:
+		PlayerManager.spawn(l3_start)
+	
+	print("level is now: ", current_level)
+	# Update the player's begin attack strength and item collection status
+	_game_load()
+	# Emit a signal so respawn subroutines are run
+	level_start.emit()
 
 
 ## Handles the when the player exits the level
@@ -182,7 +210,11 @@ func end_level(l:int) -> void:
 	save_file.store_string(content)
 	save_file.close()
 	print(content)
-
-## Handles starting a new level; handles restarting level (after player death)
-func start_level(l:int) -> void:
-	print("player has died on level ", l)
+	
+	# Call the start_level subroutine to start the new level if not on final level
+	if l == 1 or l == 2:
+		start_level(l+1)
+	else:
+		#temporary loop in levels for testing
+		start_level(1)
+		print("returned back to menu")

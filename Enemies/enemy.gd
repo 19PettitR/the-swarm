@@ -81,6 +81,11 @@ func _ready() -> void:
 	attack_box.can_attack.connect(_look_to_attack)
 	attack_box.cannot_attack.connect(_stop_looking_to_attack)
 	
+	# Signal that the level is being started/restarted; respawn enemy
+	LevelManager.level_start.connect(_respawn)
+	# Save enemy start position for respawning
+	my_position = global_position
+	
 	# enemy_hitpoints needs to be set during _ready because max_enemy_hitpoints is export
 	enemy_hitpoints = max_enemy_hitpoints
 
@@ -126,7 +131,6 @@ func _physics_process(delta: float) -> void:
 						# If the enemy is further right of the right boundary, they should start moving left
 						elif global_position.x >= right_boundary:
 							direction = -1
-						
 						velocity.x = speed * direction
 					
 					# If the player is in range, they should be followed
@@ -219,6 +223,7 @@ func _take_damage() -> void:
 
 	# Kill the enemy if their hitpoints drop below 0
 	if enemy_hitpoints - player.attack_strength <= 0:
+		enemy_hitpoints = 0
 		_die()
 	# If the enemy does not die, take their hitpoints away
 	else:
@@ -266,7 +271,18 @@ func _die() -> void:
 
 ## Responsible for resetting the enemy to its original state when the level is reset
 func _respawn() -> void:
-	pass
+	# Put the enemy back at normal position
+	global_position = my_position
+	# Give enemy a direction so they are not stationary (if killed when stationary)
+	direction = 1
+	# Enemy back at full health
+	print(self.name, "   enemy hitpoints (pre-respawn): ", enemy_hitpoints)
+	enemy_hitpoints = max_enemy_hitpoints
+	print(self.name, "   enemy_hitpoints: ", enemy_hitpoints, "   max_enemy_hitpoints: ", max_enemy_hitpoints)
+	#if dead:
+		#print(enemy_hitpoints)
+	# Enemy is alive (again)
+	dead = false
 
 
 ## Update player_within_range

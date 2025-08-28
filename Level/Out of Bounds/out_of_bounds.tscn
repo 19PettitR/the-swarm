@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bo24xpsaoemoq"]
 
-[ext_resource type="Script" path="res://Level/out_of_bounds.gd" id="1_ij81l"]
+[ext_resource type="Script" path="res://Level/Out of Bounds/out_of_bounds.gd" id="1_ij81l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omu6q"]
 

@@ -4,27 +4,37 @@ class_name Item extends Area2D
 @onready var player = PlayerManager.player
 
 # Variables about item
-@export var item_id : String = "1"
-@export var item_strength : int = 2
-@export var item_heal : int = 3
+@export var item_id : String = ""
+@export var item_strength : int = 0
+@export var item_heal : int = 0
 
-# Used in later milestones
+# Stores whether the item has been collected or not
 var collected : bool = false
+# Stores original position of the item (used when respawning)
 var my_position : Vector2
 
 
-## Connects the body_entered signal to the _collection subroutine, sets the collected variable
+## Connects signals to subroutines, sets my_position
 func _ready() -> void:
 	body_entered.connect(_collection)
+	LevelManager.level_start.connect(_respawn)
+	# Store the position of the itme when starting
+	my_position = global_position
+	_check_if_collected()
+
+
+## Check the save file for if the item has been collected; set the collected variable
+func _check_if_collected() -> void:
 	
-	# If the item is a strengthening item, check the corresponding index of the level manager's item_status
+	# If the item is strengthening item, check corresponding index of the level manager's item_status
 	if item_id.begins_with("ST"):
 		# Item collected if 1
 		if LevelManager.item_status[int(item_id[2]+item_id[3])] == 1:
 			# Set the collected variable and move out of the player's sight
 			collected = true
 			global_position = LevelManager.disappear_position
-	# If the item is a collectible, check the corresponding index of the level amanger's item_status
+	
+	# If the item is a collectible, check the corresponding index of the level manager's item_status
 	elif item_id.begins_with("CL"):
 		# Item collected if 1
 		if LevelManager.item_status[int(item_id[2]+item_id[3])+4] == 1:
@@ -40,3 +50,11 @@ func _collection(p:Node2D) -> void:
 		PlayerManager.item_add(item_id, item_strength, item_heal)
 		# Change the position of the item so it is out of the player's sight
 		global_position = LevelManager.disappear_position
+
+
+## Respawn the item when level starts/restarts
+func _respawn() -> void:
+	_check_if_collected()
+	# Items should only respawn if not collected in a previous save/level
+	if not collected:
+		global_position = my_position

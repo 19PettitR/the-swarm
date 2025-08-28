@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://du0kiy8tawg7j"]
+
+[ext_resource type="Texture2D" uid="uid://hnwlqq7fxvcc" path="res://Menus/Play Button.PNG" id="1_c14h1"]
+[ext_resource type="Texture2D" uid="uid://78wot0qhjgll" path="res://Menus/Delete Button.png" id="2_qkajw"]
+
+[node name="Main Menu" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28.8, 16.2)
+color = Color(0.694118, 0.0313726, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 105.953
+offset_top = 183.315
+offset_right = 481.953
+offset_bottom = 372.315
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_c14h1")
+
+[node name="TextureButton2" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_qkajw")
