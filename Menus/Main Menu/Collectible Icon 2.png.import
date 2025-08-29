@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://78wot0qhjgll"
-path="res://.godot/imported/Delete Button.png-184f17c52ec20b0a39ae34c0464a2185.ctex"
+uid="uid://8mshpaltkg3j"
+path="res://.godot/imported/Collectible Icon 2.png-11d892945d0cb4d1ce25082330372cb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Menus/Delete Button.png"
-dest_files=["res://.godot/imported/Delete Button.png-184f17c52ec20b0a39ae34c0464a2185.ctex"]
+source_file="res://Menus/Main Menu/Collectible Icon 2.png"
+dest_files=["res://.godot/imported/Collectible Icon 2.png-11d892945d0cb4d1ce25082330372cb0.ctex"]
 
 [params]
 

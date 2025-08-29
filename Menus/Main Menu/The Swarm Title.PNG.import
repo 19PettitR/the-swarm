@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hnwlqq7fxvcc"
-path="res://.godot/imported/Play Button.PNG-5762381ad9a9e6c6341356455b966da2.ctex"
+uid="uid://cxhfv4y5adaqg"
+path="res://.godot/imported/The Swarm Title.PNG-66cb50367bd4f21a11199ace32c5ad02.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Menus/Play Button.PNG"
-dest_files=["res://.godot/imported/Play Button.PNG-5762381ad9a9e6c6341356455b966da2.ctex"]
+source_file="res://Menus/Main Menu/The Swarm Title.PNG"
+dest_files=["res://.godot/imported/The Swarm Title.PNG-66cb50367bd4f21a11199ace32c5ad02.ctex"]
 
 [params]
 

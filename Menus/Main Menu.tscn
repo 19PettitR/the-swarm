@@ -1,26 +1,333 @@
-[gd_scene load_steps=3 format=3 uid="uid://du0kiy8tawg7j"]
+[gd_scene load_steps=14 format=3 uid="uid://c671fv0365d4i"]
 
-[ext_resource type="Texture2D" uid="uid://hnwlqq7fxvcc" path="res://Menus/Play Button.PNG" id="1_c14h1"]
-[ext_resource type="Texture2D" uid="uid://78wot0qhjgll" path="res://Menus/Delete Button.png" id="2_qkajw"]
+[ext_resource type="Texture2D" uid="uid://brbcfift73n8c" path="res://Menus/Main Menu/Play Button.PNG" id="1_n14fq"]
+[ext_resource type="Texture2D" uid="uid://cccd1p4nshqww" path="res://Menus/Main Menu/Delete Button.png" id="2_wbkr7"]
+[ext_resource type="Texture2D" uid="uid://cxhfv4y5adaqg" path="res://Menus/Main Menu/The Swarm Title.PNG" id="3_faebw"]
+[ext_resource type="Texture2D" uid="uid://clxcvp5f1qo7l" path="res://Menus/Main Menu/Collectible Icon 1.png" id="4_4s5wp"]
+[ext_resource type="Texture2D" uid="uid://cfn8siqhvehro" path="res://Menus/Main Menu/MMP All Levels.png" id="5_iend6"]
+[ext_resource type="Texture2D" uid="uid://bkt6o6om803p7" path="res://Menus/Main Menu/MMP 1&2.png" id="6_retm1"]
+[ext_resource type="Texture2D" uid="uid://dvl4umeg41kvo" path="res://Menus/Main Menu/MMP 1.png" id="7_qh2g7"]
+[ext_resource type="Texture2D" uid="uid://b64067h2bn8h0" path="res://Menus/Main Menu/MMP Empty.png" id="8_45cvt"]
+[ext_resource type="Texture2D" uid="uid://cab4wel6pv7hm" path="res://Menus/Main Menu/Collectible Not Found.png" id="8_brunq"]
+[ext_resource type="Texture2D" uid="uid://br3qypqja0ihb" path="res://Menus/Main Menu/Play Icon.png" id="9_uocu3"]
+
+[sub_resource type="SystemFont" id="SystemFont_5o3wd"]
+font_names = PackedStringArray("Segoe UI")
+font_weight = 700
+subpixel_positioning = 0
+
+[sub_resource type="SystemFont" id="SystemFont_cg4ei"]
+font_names = PackedStringArray("Segoe UI")
+
+[sub_resource type="SystemFont" id="SystemFont_vkcee"]
+font_names = PackedStringArray("Segoe UI")
+font_weight = 600
 
 [node name="Main Menu" type="CanvasLayer"]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(28.8, 16.2)
 color = Color(0.694118, 0.0313726, 0, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 105.953
-offset_top = 183.315
-offset_right = 481.953
-offset_bottom = 372.315
+offset_left = 106.0
+offset_top = 223.315
+offset_right = 482.0
+offset_bottom = 412.315
 
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer"]
+[node name="Play_Button" type="TextureButton" parent="VBoxContainer"]
+texture_filter = 1
 layout_mode = 2
-texture_normal = ExtResource("1_c14h1")
+texture_normal = ExtResource("1_n14fq")
 
-[node name="TextureButton2" type="TextureButton" parent="VBoxContainer"]
+[node name="Delete_Button" type="TextureButton" parent="VBoxContainer"]
+texture_filter = 1
 layout_mode = 2
-texture_normal = ExtResource("2_qkajw")
+texture_normal = ExtResource("2_wbkr7")
+
+[node name="The_Swarm_Title" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = 109.0
+offset_top = 40.0
+offset_right = 1138.0
+offset_bottom = 372.0
+scale = Vector2(0.36194, 0.503444)
+texture = ExtResource("3_faebw")
+
+[node name="Collectible Status" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 578.0
+offset_top = 82.0
+offset_right = 618.0
+offset_bottom = 122.0
+
+[node name="Collectible Status" type="Label" parent="Collectible Status"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 59.0
+offset_right = 260.0
+offset_bottom = 23.0
+scale = Vector2(2.10085, 1.97161)
+theme_override_colors/font_color = Color(0.996078, 0.584314, 0.152941, 1)
+theme_override_fonts/font = SubResource("SystemFont_5o3wd")
+text = "2/7 COLLECTIBLES FOUND"
+
+[node name="Collectible Main Icon" type="TextureRect" parent="Collectible Status"]
+layout_mode = 0
+offset_right = 66.0
+offset_bottom = 66.0
+scale = Vector2(0.770809, 0.770809)
+texture = ExtResource("4_4s5wp")
+
+[node name="Main Menu Panel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 566.0
+offset_top = 177.0
+offset_right = 606.0
+offset_bottom = 217.0
+
+[node name="MMP All" type="Control" parent="Main Menu Panel"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MMP 123" type="TextureRect" parent="Main Menu Panel/MMP All"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 506.0
+offset_bottom = 397.0
+texture = ExtResource("5_iend6")
+
+[node name="MMP L1&2" type="Control" parent="Main Menu Panel"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MMP 12" type="TextureRect" parent="Main Menu Panel/MMP L1&2"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 506.0
+offset_bottom = 397.0
+texture = ExtResource("6_retm1")
+
+[node name="MMP L1" type="Control" parent="Main Menu Panel"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MMP 1" type="TextureRect" parent="Main Menu Panel/MMP L1"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 506.0
+offset_bottom = 397.0
+texture = ExtResource("7_qh2g7")
+
+[node name="LevelCollectibles" type="Control" parent="Main Menu Panel"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Collectibles1" type="Control" parent="Main Menu Panel/LevelCollectibles"]
+texture_filter = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextCollectible1" type="Label" parent="Main Menu Panel/LevelCollectibles/Collectibles1"]
+modulate = Color(0.996078, 0.584314, 0.152941, 1)
+texture_filter = 1
+layout_mode = 0
+offset_left = 285.0
+offset_top = 98.0
+offset_right = 378.0
+offset_bottom = 121.0
+theme_override_fonts/font = SubResource("SystemFont_cg4ei")
+text = "Collectibles:"
+
+[node name="TextureRect" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles1"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 382.0
+offset_top = 98.0
+offset_right = 422.0
+offset_bottom = 138.0
+scale = Vector2(0.653286, 0.653286)
+texture = ExtResource("8_brunq")
+
+[node name="TextureRect2" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles1"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 417.0
+offset_top = 98.0
+offset_right = 457.0
+offset_bottom = 138.0
+scale = Vector2(0.653286, 0.653286)
+texture = ExtResource("8_brunq")
+
+[node name="Collectibles2" type="Control" parent="Main Menu Panel/LevelCollectibles"]
+texture_filter = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextCollectible2" type="Label" parent="Main Menu Panel/LevelCollectibles/Collectibles2"]
+modulate = Color(0.996078, 0.584314, 0.152941, 1)
+texture_filter = 1
+layout_mode = 0
+offset_left = 285.0
+offset_top = 229.0
+offset_right = 378.0
+offset_bottom = 252.0
+theme_override_fonts/font = SubResource("SystemFont_cg4ei")
+text = "Collectibles:"
+
+[node name="TextureRect" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles2"]
+texture_filter = 1
+offset_left = 382.0
+offset_top = 227.0
+offset_right = 422.0
+offset_bottom = 267.0
+scale = Vector2(0.653286, 0.653286)
+texture = ExtResource("8_brunq")
+
+[node name="TextureRect2" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles2"]
+texture_filter = 1
+offset_left = 417.0
+offset_top = 227.0
+offset_right = 457.0
+offset_bottom = 267.0
+scale = Vector2(0.653286, 0.653286)
+texture = ExtResource("8_brunq")
+
+[node name="Collectibles3" type="Control" parent="Main Menu Panel/LevelCollectibles"]
+texture_filter = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextCollectible3" type="Label" parent="Main Menu Panel/LevelCollectibles/Collectibles3"]
+modulate = Color(0.996078, 0.584314, 0.152941, 1)
+texture_filter = 1
+layout_mode = 0
+offset_left = 285.0
+offset_top = 357.0
+offset_right = 378.0
+offset_bottom = 380.0
+theme_override_fonts/font = SubResource("SystemFont_cg4ei")
+text = "Collectibles:"
+
+[node name="TextureRect" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles3"]
+texture_filter = 1
+offset_left = 382.0
+offset_top = 356.0
+offset_right = 422.0
+offset_bottom = 396.0
+scale = Vector2(0.653286, 0.653286)
+texture = ExtResource("8_brunq")
+
+[node name="TextureRect2" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles3"]
+texture_filter = 1
+offset_left = 417.0
+offset_top = 356.0
+offset_right = 457.0
+offset_bottom = 396.0
+scale = Vector2(0.653286, 0.653286)
+texture = ExtResource("8_brunq")
+
+[node name="TextureRect3" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles3"]
+texture_filter = 1
+offset_left = 452.0
+offset_top = 356.0
+offset_right = 492.0
+offset_bottom = 396.0
+scale = Vector2(0.653286, 0.653286)
+texture = ExtResource("8_brunq")
+
+[node name="Level Play Buttons" type="Control" parent="Main Menu Panel"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LevelPlay1" type="TextureButton" parent="Main Menu Panel/Level Play Buttons"]
+texture_filter = 1
+offset_left = 143.0
+offset_top = 62.0
+offset_right = 186.0
+offset_bottom = 102.0
+scale = Vector2(0.826737, 0.826737)
+texture_normal = ExtResource("9_uocu3")
+
+[node name="LevelPlay2" type="TextureButton" parent="Main Menu Panel/Level Play Buttons"]
+texture_filter = 1
+offset_left = 144.0
+offset_top = 197.0
+offset_right = 187.0
+offset_bottom = 235.0
+scale = Vector2(0.826737, 0.826737)
+texture_normal = ExtResource("9_uocu3")
+
+[node name="LevelPlay3" type="TextureButton" parent="Main Menu Panel/Level Play Buttons"]
+texture_filter = 1
+offset_left = 144.0
+offset_top = 322.0
+offset_right = 187.0
+offset_bottom = 362.0
+scale = Vector2(0.826737, 0.826737)
+texture_normal = ExtResource("9_uocu3")
+
+[node name="Empty" type="Control" parent="Main Menu Panel"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MMP Empty" type="TextureRect" parent="Main Menu Panel/Empty"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 506.0
+offset_bottom = 397.0
+texture = ExtResource("8_45cvt")
+
+[node name="Control" type="Control" parent="Main Menu Panel"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Level 1" type="Label" parent="Main Menu Panel/Control"]
+modulate = Color(0.352941, 0.054902, 0.0235294, 1)
+texture_filter = 1
+offset_left = 145.0
+offset_top = 17.0
+offset_right = 308.0
+offset_bottom = 40.0
+scale = Vector2(1.73241, 1.36998)
+theme_override_fonts/font = SubResource("SystemFont_vkcee")
+text = "LEVEL 1 - THE FACILITY"
+
+[node name="Level 2" type="Label" parent="Main Menu Panel/Control"]
+modulate = Color(0.352941, 0.054902, 0.0235294, 1)
+texture_filter = 1
+offset_left = 145.0
+offset_top = 151.0
+offset_right = 308.0
+offset_bottom = 174.0
+scale = Vector2(1.73241, 1.36998)
+theme_override_fonts/font = SubResource("SystemFont_vkcee")
+text = "LEVEL 1 - THE SHIP"
+
+[node name="Level 3" type="Label" parent="Main Menu Panel/Control"]
+modulate = Color(0.352941, 0.054902, 0.0235294, 1)
+texture_filter = 1
+offset_left = 145.0
+offset_top = 281.0
+offset_right = 308.0
+offset_bottom = 304.0
+scale = Vector2(1.73241, 1.36998)
+theme_override_fonts/font = SubResource("SystemFont_vkcee")
+text = "LEVEL 1 - THE PLANET"
