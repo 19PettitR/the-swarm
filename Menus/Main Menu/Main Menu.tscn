@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c671fv0365d4i"]
+[gd_scene load_steps=16 format=3 uid="uid://c671fv0365d4i"]
 
 [ext_resource type="Texture2D" uid="uid://brbcfift73n8c" path="res://Menus/Main Menu/Play Button.PNG" id="1_n14fq"]
 [ext_resource type="Texture2D" uid="uid://cccd1p4nshqww" path="res://Menus/Main Menu/Delete Button.png" id="2_wbkr7"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b64067h2bn8h0" path="res://Menus/Main Menu/MMP Empty.png" id="8_45cvt"]
 [ext_resource type="Texture2D" uid="uid://cab4wel6pv7hm" path="res://Menus/Main Menu/Collectible Not Found.png" id="8_brunq"]
 [ext_resource type="Texture2D" uid="uid://br3qypqja0ihb" path="res://Menus/Main Menu/Play Icon.png" id="9_uocu3"]
+[ext_resource type="Texture2D" uid="uid://b751tslje8vpe" path="res://Menus/Main Menu/Tick Icon.png" id="12_6g4eu"]
 
 [sub_resource type="SystemFont" id="SystemFont_5o3wd"]
 font_names = PackedStringArray("Segoe UI")
@@ -18,10 +19,17 @@ subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_cg4ei"]
 font_names = PackedStringArray("Segoe UI")
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_vkcee"]
 font_names = PackedStringArray("Segoe UI")
 font_weight = 600
+subpixel_positioning = 0
+
+[sub_resource type="SystemFont" id="SystemFont_qawe7"]
+font_names = PackedStringArray("Segoe UI")
+font_weight = 700
+subpixel_positioning = 0
 
 [node name="Main Menu" type="CanvasLayer"]
 
@@ -40,11 +48,13 @@ offset_bottom = 412.315
 [node name="Play_Button" type="TextureButton" parent="VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("1_n14fq")
 
 [node name="Delete_Button" type="TextureButton" parent="VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("2_wbkr7")
 
 [node name="The_Swarm_Title" type="TextureRect" parent="."]
@@ -90,57 +100,43 @@ offset_top = 177.0
 offset_right = 606.0
 offset_bottom = 217.0
 
-[node name="MMP All" type="Control" parent="Main Menu Panel"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MMP 123" type="TextureRect" parent="Main Menu Panel/MMP All"]
+[node name="MMP 123" type="TextureRect" parent="Main Menu Panel"]
 texture_filter = 1
 layout_mode = 0
 offset_right = 506.0
 offset_bottom = 397.0
 texture = ExtResource("5_iend6")
 
-[node name="MMP L1&2" type="Control" parent="Main Menu Panel"]
+[node name="MMP 12" type="TextureRect" parent="Main Menu Panel"]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MMP 12" type="TextureRect" parent="Main Menu Panel/MMP L1&2"]
 texture_filter = 1
 layout_mode = 0
 offset_right = 506.0
 offset_bottom = 397.0
 texture = ExtResource("6_retm1")
 
-[node name="MMP L1" type="Control" parent="Main Menu Panel"]
+[node name="MMP 1" type="TextureRect" parent="Main Menu Panel"]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MMP 1" type="TextureRect" parent="Main Menu Panel/MMP L1"]
 texture_filter = 1
 layout_mode = 0
 offset_right = 506.0
 offset_bottom = 397.0
 texture = ExtResource("7_qh2g7")
 
-[node name="LevelCollectibles" type="Control" parent="Main Menu Panel"]
+[node name="Level Collectibles" type="Control" parent="Main Menu Panel"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Collectibles1" type="Control" parent="Main Menu Panel/LevelCollectibles"]
+[node name="Collectibles1" type="Control" parent="Main Menu Panel/Level Collectibles"]
+visible = false
 texture_filter = 1
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextCollectible1" type="Label" parent="Main Menu Panel/LevelCollectibles/Collectibles1"]
-modulate = Color(0.996078, 0.584314, 0.152941, 1)
+[node name="TextCollectible1" type="Label" parent="Main Menu Panel/Level Collectibles/Collectibles1"]
+modulate = Color(0.981574, 0.503794, 3.46541e-06, 1)
 texture_filter = 1
 layout_mode = 0
 offset_left = 285.0
@@ -150,7 +146,7 @@ offset_bottom = 121.0
 theme_override_fonts/font = SubResource("SystemFont_cg4ei")
 text = "Collectibles:"
 
-[node name="TextureRect" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles1"]
+[node name="Icon_CL00" type="TextureRect" parent="Main Menu Panel/Level Collectibles/Collectibles1"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 382.0
@@ -160,7 +156,7 @@ offset_bottom = 138.0
 scale = Vector2(0.653286, 0.653286)
 texture = ExtResource("8_brunq")
 
-[node name="TextureRect2" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles1"]
+[node name="Icon_CL01" type="TextureRect" parent="Main Menu Panel/Level Collectibles/Collectibles1"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 417.0
@@ -170,14 +166,15 @@ offset_bottom = 138.0
 scale = Vector2(0.653286, 0.653286)
 texture = ExtResource("8_brunq")
 
-[node name="Collectibles2" type="Control" parent="Main Menu Panel/LevelCollectibles"]
+[node name="Collectibles2" type="Control" parent="Main Menu Panel/Level Collectibles"]
+visible = false
 texture_filter = 1
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextCollectible2" type="Label" parent="Main Menu Panel/LevelCollectibles/Collectibles2"]
-modulate = Color(0.996078, 0.584314, 0.152941, 1)
+[node name="TextCollectible2" type="Label" parent="Main Menu Panel/Level Collectibles/Collectibles2"]
+modulate = Color(0.981574, 0.503794, 3.46541e-06, 1)
 texture_filter = 1
 layout_mode = 0
 offset_left = 285.0
@@ -187,8 +184,9 @@ offset_bottom = 252.0
 theme_override_fonts/font = SubResource("SystemFont_cg4ei")
 text = "Collectibles:"
 
-[node name="TextureRect" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles2"]
+[node name="Icon_CL02" type="TextureRect" parent="Main Menu Panel/Level Collectibles/Collectibles2"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 382.0
 offset_top = 227.0
 offset_right = 422.0
@@ -196,8 +194,9 @@ offset_bottom = 267.0
 scale = Vector2(0.653286, 0.653286)
 texture = ExtResource("8_brunq")
 
-[node name="TextureRect2" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles2"]
+[node name="Icon_CL03" type="TextureRect" parent="Main Menu Panel/Level Collectibles/Collectibles2"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 417.0
 offset_top = 227.0
 offset_right = 457.0
@@ -205,14 +204,15 @@ offset_bottom = 267.0
 scale = Vector2(0.653286, 0.653286)
 texture = ExtResource("8_brunq")
 
-[node name="Collectibles3" type="Control" parent="Main Menu Panel/LevelCollectibles"]
+[node name="Collectibles3" type="Control" parent="Main Menu Panel/Level Collectibles"]
+visible = false
 texture_filter = 1
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextCollectible3" type="Label" parent="Main Menu Panel/LevelCollectibles/Collectibles3"]
-modulate = Color(0.996078, 0.584314, 0.152941, 1)
+[node name="TextCollectible3" type="Label" parent="Main Menu Panel/Level Collectibles/Collectibles3"]
+modulate = Color(0.981574, 0.503794, 3.46541e-06, 1)
 texture_filter = 1
 layout_mode = 0
 offset_left = 285.0
@@ -222,8 +222,9 @@ offset_bottom = 380.0
 theme_override_fonts/font = SubResource("SystemFont_cg4ei")
 text = "Collectibles:"
 
-[node name="TextureRect" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles3"]
+[node name="Icon_CL04" type="TextureRect" parent="Main Menu Panel/Level Collectibles/Collectibles3"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 382.0
 offset_top = 356.0
 offset_right = 422.0
@@ -231,8 +232,9 @@ offset_bottom = 396.0
 scale = Vector2(0.653286, 0.653286)
 texture = ExtResource("8_brunq")
 
-[node name="TextureRect2" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles3"]
+[node name="Icon_CL05" type="TextureRect" parent="Main Menu Panel/Level Collectibles/Collectibles3"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 417.0
 offset_top = 356.0
 offset_right = 457.0
@@ -240,8 +242,9 @@ offset_bottom = 396.0
 scale = Vector2(0.653286, 0.653286)
 texture = ExtResource("8_brunq")
 
-[node name="TextureRect3" type="TextureRect" parent="Main Menu Panel/LevelCollectibles/Collectibles3"]
+[node name="Icon_CL06" type="TextureRect" parent="Main Menu Panel/Level Collectibles/Collectibles3"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 452.0
 offset_top = 356.0
 offset_right = 492.0
@@ -255,53 +258,54 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="LevelPlay1" type="TextureButton" parent="Main Menu Panel/Level Play Buttons"]
+visible = false
 texture_filter = 1
+layout_mode = 0
 offset_left = 143.0
 offset_top = 62.0
 offset_right = 186.0
 offset_bottom = 102.0
 scale = Vector2(0.826737, 0.826737)
+mouse_default_cursor_shape = 2
+disabled = true
 texture_normal = ExtResource("9_uocu3")
 
 [node name="LevelPlay2" type="TextureButton" parent="Main Menu Panel/Level Play Buttons"]
+visible = false
 texture_filter = 1
+layout_mode = 0
 offset_left = 144.0
 offset_top = 197.0
 offset_right = 187.0
 offset_bottom = 235.0
 scale = Vector2(0.826737, 0.826737)
+mouse_default_cursor_shape = 2
+disabled = true
 texture_normal = ExtResource("9_uocu3")
 
 [node name="LevelPlay3" type="TextureButton" parent="Main Menu Panel/Level Play Buttons"]
+visible = false
 texture_filter = 1
+layout_mode = 0
 offset_left = 144.0
 offset_top = 322.0
 offset_right = 187.0
 offset_bottom = 362.0
 scale = Vector2(0.826737, 0.826737)
+mouse_default_cursor_shape = 2
+disabled = true
 texture_normal = ExtResource("9_uocu3")
 
-[node name="Empty" type="Control" parent="Main Menu Panel"]
+[node name="Level Text" type="Control" parent="Main Menu Panel"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Level 1" type="Label" parent="Main Menu Panel/Level Text"]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MMP Empty" type="TextureRect" parent="Main Menu Panel/Empty"]
-texture_filter = 1
-layout_mode = 0
-offset_right = 506.0
-offset_bottom = 397.0
-texture = ExtResource("8_45cvt")
-
-[node name="Control" type="Control" parent="Main Menu Panel"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Level 1" type="Label" parent="Main Menu Panel/Control"]
 modulate = Color(0.352941, 0.054902, 0.0235294, 1)
 texture_filter = 1
+layout_mode = 0
 offset_left = 145.0
 offset_top = 17.0
 offset_right = 308.0
@@ -310,24 +314,76 @@ scale = Vector2(1.73241, 1.36998)
 theme_override_fonts/font = SubResource("SystemFont_vkcee")
 text = "LEVEL 1 - THE FACILITY"
 
-[node name="Level 2" type="Label" parent="Main Menu Panel/Control"]
+[node name="Level 2" type="Label" parent="Main Menu Panel/Level Text"]
+visible = false
 modulate = Color(0.352941, 0.054902, 0.0235294, 1)
 texture_filter = 1
+layout_mode = 0
 offset_left = 145.0
 offset_top = 151.0
 offset_right = 308.0
 offset_bottom = 174.0
 scale = Vector2(1.73241, 1.36998)
 theme_override_fonts/font = SubResource("SystemFont_vkcee")
-text = "LEVEL 1 - THE SHIP"
+text = "LEVEL 2 - THE ALIEN SHIP"
 
-[node name="Level 3" type="Label" parent="Main Menu Panel/Control"]
+[node name="Level 3" type="Label" parent="Main Menu Panel/Level Text"]
+visible = false
 modulate = Color(0.352941, 0.054902, 0.0235294, 1)
 texture_filter = 1
+layout_mode = 0
 offset_left = 145.0
 offset_top = 281.0
 offset_right = 308.0
 offset_bottom = 304.0
 scale = Vector2(1.73241, 1.36998)
 theme_override_fonts/font = SubResource("SystemFont_vkcee")
-text = "LEVEL 1 - THE PLANET"
+text = "LEVEL 3 - THE PLANET"
+
+[node name="MMP Empty" type="TextureRect" parent="Main Menu Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 506.0
+offset_bottom = 397.0
+texture = ExtResource("8_45cvt")
+
+[node name="Confirmation" type="Control" parent="Main Menu Panel"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ConfirmationText" type="Label" parent="Main Menu Panel/Confirmation"]
+modulate = Color(0.352941, 0.054902, 0.0235294, 1)
+texture_filter = 1
+layout_mode = 0
+offset_left = 121.0
+offset_top = 50.0
+offset_right = 241.0
+offset_bottom = 73.0
+scale = Vector2(2.16987, 2.16987)
+theme_override_fonts/font = SubResource("SystemFont_qawe7")
+text = "ARE YOU SURE?"
+
+[node name="ConfirmationText2" type="Label" parent="Main Menu Panel/Confirmation"]
+modulate = Color(0.352941, 0.054902, 0.0235294, 1)
+texture_filter = 1
+layout_mode = 0
+offset_left = 137.0
+offset_top = 98.0
+offset_right = 332.0
+offset_bottom = 121.0
+scale = Vector2(1.15441, 1.15441)
+theme_override_fonts/font = SubResource("SystemFont_qawe7")
+text = "(This will close the game.)"
+
+[node name="Tick" type="TextureButton" parent="Main Menu Panel/Confirmation"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 226.0
+offset_top = 136.0
+offset_right = 269.0
+offset_bottom = 176.0
+mouse_default_cursor_shape = 2
+disabled = true
+texture_normal = ExtResource("12_6g4eu")

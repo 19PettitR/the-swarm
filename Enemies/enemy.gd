@@ -276,11 +276,7 @@ func _respawn() -> void:
 	# Give enemy a direction so they are not stationary (if killed when stationary)
 	direction = 1
 	# Enemy back at full health
-	print(self.name, "   enemy hitpoints (pre-respawn): ", enemy_hitpoints)
 	enemy_hitpoints = max_enemy_hitpoints
-	print(self.name, "   enemy_hitpoints: ", enemy_hitpoints, "   max_enemy_hitpoints: ", max_enemy_hitpoints)
-	#if dead:
-		#print(enemy_hitpoints)
 	# Enemy is alive (again)
 	dead = false
 

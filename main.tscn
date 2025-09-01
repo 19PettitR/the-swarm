@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bodn1k2kmnb7x"]
+[gd_scene load_steps=27 format=3 uid="uid://bodn1k2kmnb7x"]
 
 [ext_resource type="PackedScene" uid="uid://c3f0kuo0h1p3f" path="res://Player/player.tscn" id="1_7u0w7"]
 [ext_resource type="Texture2D" uid="uid://mq86p64y4k0p" path="res://Level/Backgrounds/Facility.png" id="1_fo4jl"]
@@ -20,7 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://d2qmuje6peukk" path="res://Items/Keys/key.png" id="12_dlh43"]
 [ext_resource type="PackedScene" uid="uid://bo24xpsaoemoq" path="res://Level/Out of Bounds/out_of_bounds.tscn" id="15_4yglt"]
 [ext_resource type="PackedScene" uid="uid://upff8be0o8bj" path="res://Level/Exit Level/exit_level.tscn" id="16_nqn31"]
-[ext_resource type="PackedScene" uid="uid://c671fv0365d4i" path="res://Menus/Main Menu.tscn" id="19_1ccrp"]
+[ext_resource type="PackedScene" uid="uid://c671fv0365d4i" path="res://Menus/Main Menu/Main Menu.tscn" id="19_1ccrp"]
+[ext_resource type="PackedScene" uid="uid://dhaarbpxqxs8v" path="res://Menus/Pause Menu/pause_menu.tscn" id="22_3idj1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5nyum"]
 texture = ExtResource("2_kbh2p")
@@ -599,8 +600,8 @@ climb_maximum = 96.0
 climb_minimum = 1792.0
 
 [node name="OutOfBounds" parent="." instance=ExtResource("15_4yglt")]
-position = Vector2(985, 1967)
-scale = Vector2(18.4643, 2.36301)
+position = Vector2(882, 1968)
+scale = Vector2(28.2694, 2.64627)
 
 [node name="OutOfBounds2" parent="." instance=ExtResource("15_4yglt")]
 position = Vector2(6990, 1942)
@@ -626,4 +627,6 @@ position = Vector2(13911, 1803)
 scale = Vector2(7.16894, 12.6101)
 exit_level = 3
 
-[node name="Control" parent="." instance=ExtResource("19_1ccrp")]
+[node name="Pause Menu" parent="." instance=ExtResource("22_3idj1")]
+
+[node name="Main Menu" parent="." instance=ExtResource("19_1ccrp")]
